@@ -1,13 +1,12 @@
 import React from "react";
-import Link from "next/link";
+import Head from "next/head";
+
+import Layout from "../components/Layout";
 
 const Home = () => {
   return (
     <>
-      <Link href="/about">
-        <a>ABOUT</a>
-      </Link>
-      <h1>Hello, Next</h1>
+      <h1>Hello, Dear</h1>
     </>
   );
 };
