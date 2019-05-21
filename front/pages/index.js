@@ -1,13 +1,31 @@
 import React from "react";
-import Head from "next/head";
+import PostForm from "../components/PostForm";
+import PostCard from "../components/PostCard";
 
-import Layout from "../components/Layout";
+const dummy = {
+  isLoggedIn: true,
+  imagePaths: [],
+  mainPosts: [
+    {
+      User: {
+        id: 1,
+        nickname: "arcadeKid"
+      },
+      content: "A very first post",
+      img:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Asa_Akira_2_2014.jpg/440px-Asa_Akira_2_2014.jpg"
+    }
+  ]
+};
 
 const Home = () => {
   return (
-    <>
-      <h1>Hello, Dear</h1>
-    </>
+    <div>
+      {dummy.isLoggedIn && <PostForm />}
+      {dummy.mainPosts.map(c => {
+        return <PostCard key={c} post={c}/>;
+      })}
+    </div>
   );
 };
 

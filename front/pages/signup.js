@@ -12,6 +12,15 @@ import { Form, Input, Checkbox, Button } from "antd";
 
 import Layout from "../components/Layout";
 
+//  custom hook
+export const useInput = (initValue = null) => {
+  const [value, setter] = useState(initValue);
+  const handler = useCallback(e => {
+    setter(e.target.value);
+  }, []);
+  return [value, handler];
+};
+
 const Signup = () => {
   //   const [id, setId] = useState("");
   //   const [nick, setNick] = useState("");
@@ -21,14 +30,6 @@ const Signup = () => {
   const [term, setTerm] = useState(false);
   const [termError, setTermError] = useState(false);
 
-  //  custom hook
-  const useInput = (initValue = null) => {
-    const [value, setter] = useState(initValue);
-    const handler = useCallback(e => {
-      setter(e.target.value);
-    }, []);
-    return [value, handler];
-  };
 
   const [id, onChangeId] = useInput("");
   const [nick, onChangeNick] = useInput("");
@@ -85,7 +86,7 @@ const Signup = () => {
   }, []);
 
   return (
-    <>
+    <div>
       <h1>Sign up</h1>
       <Form onSubmit={onSubmit} style={{ padding: 10 }}>
         <div>
@@ -146,7 +147,7 @@ const Signup = () => {
           </Button>
         </div>
       </Form>
-    </>
+    </div>
   );
 };
 
