@@ -7,7 +7,8 @@ import {
   takeLatest,
   takeEvery,
   call,
-  put
+  put,
+  delay
 } from "redux-saga/effects";
 import {
   LOG_IN_REQUEST,
@@ -26,7 +27,8 @@ function loginAPI() {
 
 function* login() {
   try {
-    yield call(loginAPI);
+    // yield call(loginAPI);
+    yield delay(2000);
     yield put({
       // put은 dispatch와 동일
       type: LOG_IN_SUCCESS
@@ -53,8 +55,8 @@ function signUpAPI() {
 function* signUp() {
   try {
     yield call(signUpAPI);
-    yield delay(8000);
-    throw new Error("Sign Up Error :(");
+    yield delay(2000);
+    // throw new Error("Sign Up Error :(");
     yield put({
       // put은 dispatch 동일
       type: SIGN_UP_SUCCESS
