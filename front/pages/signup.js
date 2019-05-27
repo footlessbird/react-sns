@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from "react";
+import {useDispatch} from 'react-redux'
 /*
     함수 컴포넌트는 state가 바뀌면 signup.js 컴포넌트가 통째로 재실행 됨
     따라서 함수 역시 새로 생성됨
@@ -11,6 +12,7 @@ import Head from "next/head";
 import { Form, Input, Checkbox, Button } from "antd";
 
 import Layout from "../components/Layout";
+import { signUpAction } from "../reducers/user";
 
 //  custom hook
 export const useInput = (initValue = null) => {
@@ -34,6 +36,8 @@ const Signup = () => {
   const [id, onChangeId] = useInput("");
   const [nick, onChangeNick] = useInput("");
   const [password, onChangePassword] = useInput("");
+  
+  const dispatch = useDispatch()
 
   const onSubmit = useCallback(
     e => {
@@ -44,6 +48,11 @@ const Signup = () => {
       if (!term) {
         return setTermError(true);
       }
+      dispatch(signUpAction({
+        id,
+        password,
+        nick
+      }))
 
       console.log({
         id,

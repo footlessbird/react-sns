@@ -1,23 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Form, Input, Button } from "antd";
 
-const dummy = {
-  isLoggedIn: true,
-  imagePaths: [],
-  mainPosts: [
-    {
-      User: {
-        id: 1,
-        nickname: "arcadeKid"
-      },
-      content: "A very first post",
-      img:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Asa_Akira_2_2014.jpg/440px-Asa_Akira_2_2014.jpg"
-    }
-  ]
-};
-
 const PostForm = () => {
+  const { imagePaths } = useSelector(state => state.post);
   return (
     <div>
       <Form
@@ -36,7 +22,7 @@ const PostForm = () => {
           </Button>
         </div>
         <div>
-          {dummy.imagePaths.map((v, i) => {
+          {imagePaths.map((v) => {
             return (
               <div key={v} style={{ display: "inline-block" }}>
                 <img

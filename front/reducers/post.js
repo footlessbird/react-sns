@@ -1,5 +1,17 @@
 export const initState = {
-  mainPosts: []
+  mainPosts: [
+    {
+      User: {
+        id: 1,
+        nickname: "arcadeKid"
+      },
+      content: "A very first post",
+      img:
+        // "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Asa_Akira_2_2014.jpg/440px-Asa_Akira_2_2014.jpg"
+        'https://www.w3schools.com/css/ocean.jpg'
+    }
+  ],
+  imagePaths: []
 };
 
 const ADD_POST = "ADD_POST";
