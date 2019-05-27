@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import {useDispatch} from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 /*
     함수 컴포넌트는 state가 바뀌면 signup.js 컴포넌트가 통째로 재실행 됨
     따라서 함수 역시 새로 생성됨
@@ -12,7 +12,7 @@ import Head from "next/head";
 import { Form, Input, Checkbox, Button } from "antd";
 
 import Layout from "../components/Layout";
-import { signUpAction } from "../reducers/user";
+import { signUpAction, SIGN_UP_REQUEST } from "../reducers/user";
 
 //  custom hook
 export const useInput = (initValue = null) => {
@@ -32,13 +32,12 @@ const Signup = () => {
   const [term, setTerm] = useState(false);
   const [termError, setTermError] = useState(false);
 
-
   const [id, onChangeId] = useInput("");
   const [nick, onChangeNick] = useInput("");
   const [password, onChangePassword] = useInput("");
-  
-  const dispatch = useDispatch()
 
+  const dispatch = useDispatch();
+  const {isSigningUp, me} = useSelector(state => state.user)
   const onSubmit = useCallback(
     e => {
       e.preventDefault();
@@ -48,11 +47,19 @@ const Signup = () => {
       if (!term) {
         return setTermError(true);
       }
-      dispatch(signUpAction({
-        id,
-        password,
-        nick
-      }))
+      // dispatch(signUpAction({
+      //   id,
+      //   password,
+      //   nick
+      // }))
+      return dispatch({
+        type: SIGN_UP_REQUEST,
+        data: {
+          id,
+          password,
+          nick
+        }
+      });
 
       console.log({
         id,
@@ -151,7 +158,7 @@ const Signup = () => {
           )}
         </div>
         <div>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={isSigningUp}>
             Done
           </Button>
         </div>
