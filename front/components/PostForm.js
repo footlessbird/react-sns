@@ -47,7 +47,7 @@ const PostForm = () => {
           <Button
             type="primary"
             htmlType="submit"
-            isLoading={isAddingPost}
+            loading={isAddingPost}
             style={{ float: "right" }}
           >
             Post
@@ -58,7 +58,7 @@ const PostForm = () => {
             return (
               <div key={v} style={{ display: "inline-block" }}>
                 <img
-                  src={"http://localhost:3000/" + v}
+                  src={`http://localhost:3000/${v}`}
                   style={{ width: "200px" }}
                   alt={v}
                 />

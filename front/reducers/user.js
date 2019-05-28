@@ -3,7 +3,8 @@ const dummyUser = {
   Post: [],
   Followings: [],
   Followers: [],
-  signUpData: {}
+  signUpData: {},
+  id: 1
 };
 
 export const initState = {

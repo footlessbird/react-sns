@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 /*
     함수 컴포넌트는 state가 바뀌면 signup.js 컴포넌트가 통째로 재실행 됨
@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
     그러므로 props로 넘겨주는 함수는 useCallback 필수 (자식컴포넌트에 전달하는 함수)
 */
 import Head from "next/head";
+import Router from "next/router";
+
 import { Form, Input, Checkbox, Button } from "antd";
 
 import Layout from "../components/Layout";
@@ -37,7 +39,15 @@ const Signup = () => {
   const [password, onChangePassword] = useInput("");
 
   const dispatch = useDispatch();
-  const {isSigningUp, me} = useSelector(state => state.user)
+  const { isSigningUp, me } = useSelector(state => state.user);
+
+  useEffect(() => {
+    if (me) {
+      alert(`Login succeeded, we're going to the main page`)
+      Router.push("/");
+    }
+  }, [me && me.id]);
+
   const onSubmit = useCallback(
     e => {
       e.preventDefault();

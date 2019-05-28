@@ -102,85 +102,144 @@ module.exports =
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "antd");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "prop-types");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/slicedToArray */ "./node_modules/@babel/runtime-corejs2/helpers/esm/slicedToArray.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! antd */ "antd");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "prop-types");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-redux */ "react-redux");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _reducers_post__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../reducers/post */ "./reducers/post.js");
+
 var _jsxFileName = "/Users/kangsung-yun/react-sns/front/components/PostCard.js";
+
+
 
 
 
 
 var PostCard = function PostCard(_ref) {
   var post = _ref.post;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(false),
+      _useState2 = Object(_babel_runtime_corejs2_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
+      commentFormOpened = _useState2[0],
+      setCommentFormOpened = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
+      _useState4 = Object(_babel_runtime_corejs2_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState3, 2),
+      commentText = _useState4[0],
+      setCommentText = _useState4[1];
+
+  var _useSelector = Object(react_redux__WEBPACK_IMPORTED_MODULE_4__["useSelector"])(function (state) {
+    return state.user;
+  }),
+      me = _useSelector.me;
+
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_4__["useDispatch"])();
+
+  var _useSelector2 = Object(react_redux__WEBPACK_IMPORTED_MODULE_4__["useSelector"])(function (state) {
+    return state.post;
+  }),
+      commentAdded = _useSelector2.commentAdded,
+      isAddingComment = _useSelector2.isAddingComment;
+
+  var onToggleComment = Object(react__WEBPACK_IMPORTED_MODULE_1__["useCallback"])(function () {
+    setCommentFormOpened(function (prev) {
+      return !prev;
+    }); // 댓글창이 열려있으면 닫고 닫혀있으면 열 수 있도록
+  }, []);
+  var onSubmitComment = Object(react__WEBPACK_IMPORTED_MODULE_1__["useCallback"])(function (e) {
+    e.preventDefault();
+
+    if (!me) {
+      return alert("Please sign in to comment");
+    }
+
+    return dispatch({
+      type: _reducers_post__WEBPACK_IMPORTED_MODULE_5__["ADD_COMMENT_REQUEST"],
+      data: {
+        postId: post.id
+      }
+    });
+  }, [me && me.id]);
+  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
+    return function () {
+      setCommentText('');
+    };
+  }, [commentAdded === true]);
+  var onChangeCommentText = Object(react__WEBPACK_IMPORTED_MODULE_1__["useCallback"])(function (e) {
+    setCommentText(e.target.value);
+  }, []);
+  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 7
+      lineNumber: 44
     },
     __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Card"], {
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Card"], {
     key: +post.createdAt,
-    cover: post.img && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    cover: post.img && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
       src: post.img,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 10
+        lineNumber: 47
       },
       __self: this
     }),
-    actions: [react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Icon"], {
+    actions: [react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Icon"], {
       type: "retweet",
       key: "retweet",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 12
+        lineNumber: 49
       },
       __self: this
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Icon"], {
+    }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Icon"], {
       type: "heart",
       key: "heart",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 13
+        lineNumber: 50
       },
       __self: this
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Icon"], {
+    }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Icon"], {
       type: "message",
       key: "message",
+      onClick: onToggleComment,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 14
+        lineNumber: 51
       },
       __self: this
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Icon"], {
+    }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Icon"], {
       type: "ellipsis",
       key: "ellipsis",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 15
+        lineNumber: 52
       },
       __self: this
     })],
-    extra: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    extra: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 17
+        lineNumber: 54
       },
       __self: this
     }, "Follow"),
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 8
+      lineNumber: 45
     },
     __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Card"].Meta, {
-    avatar: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Avatar"], {
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Card"].Meta, {
+    avatar: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Avatar"], {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 20
+        lineNumber: 57
       },
       __self: this
     }, post.User.nickname[0]),
@@ -188,18 +247,88 @@ var PostCard = function PostCard(_ref) {
     description: post.content,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 19
+      lineNumber: 56
+    },
+    __self: this
+  })), commentFormOpened && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 63
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Form"], {
+    onSubmit: onSubmitComment,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 64
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Form"].Item, {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 65
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Input"].TextArea, {
+    rows: 4,
+    value: commentText,
+    onChange: onChangeCommentText,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 66
+    },
+    __self: this
+  })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+    type: "primary",
+    htmlType: "submit",
+    loading: isAddingComment,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 72
+    },
+    __self: this
+  }, "Comment")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["List"], {
+    header: "".concat(post.Comments ? post.Comments.length : 0, " comments"),
+    itemLayout: "horizontal",
+    dataSource: post.Comments || [],
+    renderItem: function renderItem(item) {
+      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 81
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Comment"], {
+        author: item.User.nickname,
+        avatar: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Avatar"], {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 84
+          },
+          __self: this
+        }, item.User.nickname[0]),
+        content: item.content,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 82
+        },
+        __self: this
+      }));
+    },
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 76
     },
     __self: this
   })));
 };
 
 PostCard.propTypes = {
-  post: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.shape({
-    User: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object,
-    content: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string,
-    img: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string,
-    createdAt: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object
+  post: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.shape({
+    User: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object,
+    content: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+    img: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+    createdAt: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object
   })
 };
 /* harmony default export */ __webpack_exports__["default"] = (PostCard);
@@ -311,7 +440,7 @@ var PostForm = function PostForm() {
   }, "Upload Image"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"], {
     type: "primary",
     htmlType: "submit",
-    isLoading: isAddingPost,
+    loading: isAddingPost,
     style: {
       float: "right"
     },
@@ -338,7 +467,7 @@ var PostForm = function PostForm() {
       },
       __self: this
     }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
-      src: "http://localhost:3000/" + v,
+      src: "http://localhost:3000/".concat(v),
       style: {
         width: "200px"
       },
@@ -851,29 +980,45 @@ __webpack_require__.r(__webpack_exports__);
 
 var initState = {
   mainPosts: [{
+    id: 1,
     User: {
       id: 1,
       nickname: "arcadeKid"
     },
     content: "A very first post",
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Asa_Akira_2_2014.jpg/440px-Asa_Akira_2_2014.jpg"
+    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Asa_Akira_2_2014.jpg/440px-Asa_Akira_2_2014.jpg",
+    Comments: []
   }],
   // 화면에 보여질 포스트들
   imagePaths: [],
   // 미리보기 이미지 경로
-  addPostError: false,
+  addPostError: "",
   // 포스트 업로드 에러
   isAddingPost: false,
   // 포스트 업로드 중
-  postAdded: false // 포스팅 완료
-
+  postAdded: false,
+  // 포스팅 완료
+  isAddingComment: false,
+  addCommentError: "",
+  commentAdded: false
 };
 var dummyPost = {
+  id: 2,
   User: {
     id: 1,
     nickname: "arcadeKid"
   },
-  content: "타노스가 전 우주의 모든 생명체 절반을 제거하기 위해 인피니티 건틀렛을 사용한 지 3주가 흐른 후, 캐럴 댄버스는 깊은 우주에서 토니 스타크와 네뷸라를 구하고 지구로 데려온다. 이들은 브루스 배너, 스티브 로저스, 토르, 로켓, 나타샤 로마노프, 제임스 로즈 등 남아있는 어벤져스 멤버들과 만나고 타노스를 찾고 기습하기 위해 지식을 이용한다. 이들은 인피니티 스톤의 효과를 되돌리기 위해 인피니티 스톤을 되찾고 사용하는 계획을 세우지만, 타노스는 인피니티 젬을 사용하는 걸 막기 위해 이미 파괴한 이후였다. 화가 난 토르는 타노스의 목을 베어버린다."
+  content: "타노스가 전 우주의 모든 생명체 절반을 제거하기 위해 인피니티 건틀렛을 사용한 지 3주가 흐른 후, 캐럴 댄버스는 깊은 우주에서 토니 스타크와 네뷸라를 구하고 지구로 데려온다. 이들은 브루스 배너, 스티브 로저스, 토르, 로켓, 나타샤 로마노프, 제임스 로즈 등 남아있는 어벤져스 멤버들과 만나고 타노스를 찾고 기습하기 위해 지식을 이용한다. 이들은 인피니티 스톤의 효과를 되돌리기 위해 인피니티 스톤을 되찾고 사용하는 계획을 세우지만, 타노스는 인피니티 젬을 사용하는 걸 막기 위해 이미 파괴한 이후였다. 화가 난 토르는 타노스의 목을 베어버린다.",
+  Comments: []
+};
+var dummyComment = {
+  id: 1,
+  User: {
+    id: 1,
+    nickname: "Vancouver"
+  },
+  createdAt: new Date(),
+  content: "Say my name 🔱"
 };
 var LOAD_MAIN_POSTS_REQUEST = "LOAD_MAIN_POSTS_REQUEST";
 var LOAD_MAIN_POSTS_SUCCESS = "LOAD_MAIN_POSTS_SUCCESS";
@@ -949,6 +1094,39 @@ var reducer = function reducer() {
         postAdded: false
       });
 
+    case ADD_COMMENT_REQUEST:
+      return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
+        // 리액트는 스테이트가 변경 다시 렌더링 ...state로 새로운 객체를 (다른 참조) 만들어줘서 다시 렌더링 될 수 있게 한다
+        isAddingComment: true,
+        addCommentError: "",
+        commentAdded: false
+      });
+
+    case ADD_COMMENT_SUCCESS:
+      var postIndex = state.mainPosts.findIndex(function (v) {
+        return v.id === action.data.postId;
+      });
+      var post = state.mainPosts[postIndex];
+      var Comments = [].concat(Object(_babel_runtime_corejs2_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(post.Comments), [dummyComment]);
+
+      var mainPosts = Object(_babel_runtime_corejs2_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(state.mainPosts);
+
+      mainPosts[postIndex] = Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, post, {
+        Comments: Comments
+      });
+      return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
+        isAddingComment: false,
+        mainPosts: mainPosts,
+        commentAdded: true
+      });
+
+    case ADD_COMMENT_FAILURE:
+      return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
+        isAddingComment: false,
+        addCommentError: action.error,
+        commentAdded: false
+      });
+
     default:
       return state;
   }
@@ -1000,7 +1178,8 @@ var dummyUser = {
   Post: [],
   Followings: [],
   Followers: [],
-  signUpData: {}
+  signUpData: {},
+  id: 1
 };
 var initState = {
   isLoggedIn: false,
