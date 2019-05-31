@@ -65,9 +65,9 @@ const Signup = () => {
       return dispatch({
         type: SIGN_UP_REQUEST,
         data: {
-          id,
+          userId: id,
           password,
-          nick
+          nickname:nick
         }
       });
 
@@ -81,7 +81,7 @@ const Signup = () => {
       // useCallback을 쓸 땐 함수 내부에서 쓰는 state를 dependency 배열에 넣어준다
       // [password, passwordConfirm, term]
     },
-    [password, passwordConfirm, term]
+    [id, nick, password, passwordConfirm, term]
   );
 
   /*

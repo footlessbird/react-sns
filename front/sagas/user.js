@@ -48,14 +48,13 @@ function* watchLogin() {
   yield takeLatest(LOG_IN_REQUEST, login);
 }
 
-function signUpAPI() {
-  return axios.post("/login");
+function signUpAPI(signUpData) {
+  return axios.post("http://localhost:3306/api/user/", signUpData);
 }
 
-function* signUp() {
+function* signUp(action) {
   try {
-    yield call(signUpAPI);
-    yield delay(2000);
+    yield call(signUpAPI, action.data);
     // throw new Error("Sign Up Error :(");
     yield put({
       // put은 dispatch 동일

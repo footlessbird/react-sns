@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -1411,9 +1411,9 @@ var Signup = function Signup() {
     return dispatch({
       type: _reducers_user__WEBPACK_IMPORTED_MODULE_7__["SIGN_UP_REQUEST"],
       data: {
-        id: id,
+        userId: id,
         password: password,
-        nick: nick
+        nickname: nick
       }
     });
     console.log({
@@ -1424,7 +1424,7 @@ var Signup = function Signup() {
       term: term
     }); // useCallback을 쓸 땐 함수 내부에서 쓰는 state를 dependency 배열에 넣어준다
     // [password, passwordConfirm, term]
-  }, [password, passwordConfirm, term]);
+  }, [id, nick, password, passwordConfirm, term]);
   /*
   const onChangeId = e => {
     setId(e.target.value);
@@ -1805,7 +1805,7 @@ var reducer = function reducer() {
 
 /***/ }),
 
-/***/ 4:
+/***/ 3:
 /*!*******************************!*\
   !*** multi ./pages/signup.js ***!
   \*******************************/

@@ -1646,9 +1646,9 @@ var Signup = function Signup() {
     return dispatch({
       type: _reducers_user__WEBPACK_IMPORTED_MODULE_7__["SIGN_UP_REQUEST"],
       data: {
-        id: id,
+        userId: id,
         password: password,
-        nick: nick
+        nickname: nick
       }
     });
     console.log({
@@ -1659,7 +1659,7 @@ var Signup = function Signup() {
       term: term
     }); // useCallback을 쓸 땐 함수 내부에서 쓰는 state를 dependency 배열에 넣어준다
     // [password, passwordConfirm, term]
-  }, [password, passwordConfirm, term]);
+  }, [id, nick, password, passwordConfirm, term]);
   /*
   const onChangeId = e => {
     setId(e.target.value);
@@ -2582,51 +2582,47 @@ function watchLogin() {
   }, _marked2);
 }
 
-function signUpAPI() {
-  return axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("/login");
+function signUpAPI(signUpData) {
+  return axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("http://localhost:3306/api/user/", signUpData);
 }
 
-function signUp() {
+function signUp(action) {
   return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function signUp$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
           _context3.prev = 0;
           _context3.next = 3;
-          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["call"])(signUpAPI);
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["call"])(signUpAPI, action.data);
 
         case 3:
           _context3.next = 5;
-          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["delay"])(2000);
-
-        case 5:
-          _context3.next = 7;
           return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["put"])({
             // put은 dispatch 동일
             type: _reducers_user__WEBPACK_IMPORTED_MODULE_2__["SIGN_UP_SUCCESS"]
           });
 
-        case 7:
-          _context3.next = 14;
+        case 5:
+          _context3.next = 12;
           break;
 
-        case 9:
-          _context3.prev = 9;
+        case 7:
+          _context3.prev = 7;
           _context3.t0 = _context3["catch"](0);
           // loginAPI 실패
           console.error(_context3.t0);
-          _context3.next = 14;
+          _context3.next = 12;
           return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["put"])({
             type: _reducers_user__WEBPACK_IMPORTED_MODULE_2__["SIGN_UP_FAILURE"],
             error: _context3.t0
           });
 
-        case 14:
+        case 12:
         case "end":
           return _context3.stop();
       }
     }
-  }, _marked3, null, [[0, 9]]);
+  }, _marked3, null, [[0, 7]]);
 }
 
 function watchSignUp() {

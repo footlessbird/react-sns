@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/", (req, res) => {});
 
-router.post("/", async (req, res) => {
+router.post("/", async (req, res, next) => {
   try {
     const userExists = await db.User.findOne({
       where: {
