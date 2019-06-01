@@ -22,13 +22,12 @@ import axios from "axios";
 
 // 서버에 요청을 보냄
 function loginAPI() {
-  return axios.post("/login");
+  return axios.post("/login", loginData);
 }
 
-function* login() {
+function* login(action) {
   try {
-    // yield call(loginAPI);
-    yield delay(2000);
+    yield call(loginAPI, action.data);
     yield put({
       // put은 dispatch와 동일
       type: LOG_IN_SUCCESS

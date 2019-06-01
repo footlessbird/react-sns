@@ -1,5 +1,6 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
+const passport = require("passport");
 const db = require("../models");
 const router = express.Router();
 
@@ -25,7 +26,7 @@ router.post("/", async (req, res, next) => {
     return res.json(newUser);
   } catch (e) {
     console.log(e);
-    return next(e)
+    return next(e);
   }
 });
 
@@ -33,7 +34,27 @@ router.get("/:id", (req, res) => {});
 
 router.post("/logout", (req, res) => {});
 
-router.post("/login", (req, res) => {});
+router.post("/login", (req, res) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) {
+      // 서버 에러
+      console.log(err);
+      return next(err);
+    }
+    if (info) {
+      // 로직 에러
+      return res.status(401).send(info.reason);
+    }
+    return req.login(user, loginErr => {
+      if (loginErr) {
+        return next(loginErr);
+      }
+      const filteredUser = Object.assign({}, user); // 비번 노출을 막기위해 유저 얕은 복사?
+      delete filteredUser.password; // 비번은 지워준다
+      return res.json(filteredUser);
+    });
+  });
+});
 
 router.get("/:id/follow", (req, res) => {});
 

@@ -2525,17 +2525,17 @@ _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(u
  // 서버에 요청을 보냄
 
 function loginAPI() {
-  return axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("/login");
+  return axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("/login", loginData);
 }
 
-function login() {
+function login(action) {
   return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function login$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
           _context.next = 3;
-          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["delay"])(2000);
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["call"])(loginAPI, action.data);
 
         case 3:
           _context.next = 5;

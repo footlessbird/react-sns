@@ -3,17 +3,20 @@ const morgan = require("morgan");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const expressSession = require("express-session");
-const dotenv = require('dotenv')
+const dotenv = require("dotenv");
+const passport = require("passport");
 
+const passportConfig = require("./passport");
 const db = require("./models");
 const userAPIRouter = require("./routes/user"); // 공통된 부분을 따로 빼냄 모듈화? /api/user
 const postAPIRouter = require("./routes/post");
 const postsAPIRouter = require("./routes/posts");
 
-dotenv.config()
+dotenv.config();
 const app = express();
 
 db.sequelize.sync();
+passportConfig();
 
 app.use(morgan("dev"));
 
@@ -33,6 +36,9 @@ app.use(
     }
   })
 );
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // API는 다른 서비스가 내 서비스의 기능을 실행할 수 있게 열어둔 창구
 app.use("/api/user", userAPIRouter);
