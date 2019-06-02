@@ -18,7 +18,7 @@ const LoginForm = () => {
       dispatch({  // 액션함수를 따로 만들지 않을 수 있다 아래 타입이 스위치문  action.type에 걸림 동시에 사가에도 걸림
         type: LOG_IN_REQUEST,
         data: {
-          id,
+          userId: id,
           password
         }
       });

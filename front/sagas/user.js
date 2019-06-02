@@ -19,18 +19,22 @@ import {
   SIGN_UP_FAILURE
 } from "../reducers/user";
 import axios from "axios";
+axios.defaults.baseURL = "http://localhost:3306/api";
 
 // 서버에 요청을 보냄
-function loginAPI() {
-  return axios.post("/login", loginData);
+function loginAPI(loginData) {
+  return axios.post("/user/login", loginData, {
+    withCredentials: true
+  });
 }
 
 function* login(action) {
   try {
-    yield call(loginAPI, action.data);
+    const result = yield call(loginAPI, action.data);
     yield put({
       // put은 dispatch와 동일
-      type: LOG_IN_SUCCESS
+      type: LOG_IN_SUCCESS,
+      data: result.data
     });
   } catch (e) {
     // loginAPI 실패
@@ -48,7 +52,7 @@ function* watchLogin() {
 }
 
 function signUpAPI(signUpData) {
-  return axios.post("http://localhost:3306/api/user/", signUpData);
+  return axios.post("/user/", signUpData);
 }
 
 function* signUp(action) {

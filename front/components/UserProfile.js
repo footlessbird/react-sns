@@ -14,20 +14,20 @@ const UserProfile = () => {
   }, []);
   return (
       <Card
-        actions={[
-          <div key="tweet">
-            <p>Tweet</p>
-            {me.Post.length}
-          </div>,
-          <div key="following">
-            <p>Following</p>
-            {me.Followings.length}
-          </div>,
-          <div key="follower">
-            <p>Followers</p>
-            {me.Followers.length}
-          </div>
-        ]}
+        // actions={[
+        //   <div key="tweet">
+        //     <p>Tweet</p>
+        //     {me.Post.length}
+        //   </div>,
+        //   <div key="following">
+        //     <p>Following</p>
+        //     {me.Followings.length}
+        //   </div>,
+        //   <div key="follower">
+        //     <p>Followers</p>
+        //     {me.Followers.length}
+        //   </div>
+        // ]}
         >
         <Card.Meta
           avatar={<Avatar>{me.nickname[0]}</Avatar>}

@@ -320,7 +320,7 @@ var LoginForm = function LoginForm() {
       // 액션함수를 따로 만들지 않을 수 있다 아래 타입이 스위치문  action.type에 걸림 동시에 사가에도 걸림
       type: _reducers_user__WEBPACK_IMPORTED_MODULE_6__["LOG_IN_REQUEST"],
       data: {
-        id: id,
+        userId: id,
         password: password
       }
     });
@@ -2222,7 +2222,7 @@ var reducer = function reducer() {
         return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_0__["default"])({}, state, {
           isLoggingIn: false,
           isLoggedIn: true,
-          me: dummyUser
+          me: action.data
         });
       }
 
@@ -2522,13 +2522,17 @@ _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(u
 // put은 액션 dispatch
 
 
- // 서버에 요청을 보냄
 
-function loginAPI() {
-  return axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("/login", loginData);
+axios__WEBPACK_IMPORTED_MODULE_3___default.a.defaults.baseURL = "http://localhost:3306/api"; // 서버에 요청을 보냄
+
+function loginAPI(loginData) {
+  return axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("/user/login", loginData, {
+    withCredentials: true
+  });
 }
 
 function login(action) {
+  var result;
   return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function login$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
@@ -2538,32 +2542,34 @@ function login(action) {
           return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["call"])(loginAPI, action.data);
 
         case 3:
-          _context.next = 5;
+          result = _context.sent;
+          _context.next = 6;
           return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["put"])({
             // put은 dispatch와 동일
-            type: _reducers_user__WEBPACK_IMPORTED_MODULE_2__["LOG_IN_SUCCESS"]
+            type: _reducers_user__WEBPACK_IMPORTED_MODULE_2__["LOG_IN_SUCCESS"],
+            data: result.data
           });
 
-        case 5:
-          _context.next = 12;
+        case 6:
+          _context.next = 13;
           break;
 
-        case 7:
-          _context.prev = 7;
+        case 8:
+          _context.prev = 8;
           _context.t0 = _context["catch"](0);
           // loginAPI 실패
           console.error(_context.t0);
-          _context.next = 12;
+          _context.next = 13;
           return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["put"])({
             type: _reducers_user__WEBPACK_IMPORTED_MODULE_2__["LOG_IN_FAILURE"]
           });
 
-        case 12:
+        case 13:
         case "end":
           return _context.stop();
       }
     }
-  }, _marked, null, [[0, 7]]);
+  }, _marked, null, [[0, 8]]);
 }
 
 function watchLogin() {
@@ -2583,7 +2589,7 @@ function watchLogin() {
 }
 
 function signUpAPI(signUpData) {
-  return axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("http://localhost:3306/api/user/", signUpData);
+  return axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("/user/", signUpData);
 }
 
 function signUp(action) {

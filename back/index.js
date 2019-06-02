@@ -1,9 +1,9 @@
 const express = require("express");
+const dotenv = require("dotenv");
 const morgan = require("morgan");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const expressSession = require("express-session");
-const dotenv = require("dotenv");
 const passport = require("passport");
 
 const passportConfig = require("./passport");
@@ -23,7 +23,12 @@ app.use(morgan("dev"));
 //  req.body를 사용하기 위해
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(
+  cors({
+    origin: true,
+    credentials: true
+  })
+);
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
   expressSession({
@@ -33,7 +38,8 @@ app.use(
     cookie: {
       httpOnly: true,
       secure: false // https를 쓸 때 true
-    }
+    },
+    name:"dck"
   })
 );
 

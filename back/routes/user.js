@@ -32,9 +32,13 @@ router.post("/", async (req, res, next) => {
 
 router.get("/:id", (req, res) => {});
 
-router.post("/logout", (req, res) => {});
+router.post("/logout", (req, res) => {
+    req.logout();
+    req.session.destroy()
+    res.send('Log out succeeded')
+});
 
-router.post("/login", (req, res) => {
+router.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) {
       // 서버 에러
@@ -49,11 +53,12 @@ router.post("/login", (req, res) => {
       if (loginErr) {
         return next(loginErr);
       }
-      const filteredUser = Object.assign({}, user); // 비번 노출을 막기위해 유저 얕은 복사?
+    //   console.log('login success', req.user)
+      const filteredUser = Object.assign({}, user.toJSON()); // 비번 노출을 막기위해 유저 얕은 복사?
       delete filteredUser.password; // 비번은 지워준다
       return res.json(filteredUser);
     });
-  });
+  })(req, res, next);
 });
 
 router.get("/:id/follow", (req, res) => {});
