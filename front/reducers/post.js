@@ -7,8 +7,7 @@ export const initState = {
         nickname: "arcadeKid"
       },
       content: "A very first post",
-      img:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Asa_Akira_2_2014.jpg/440px-Asa_Akira_2_2014.jpg",
+      img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Asa_Akira_2_2014.jpg/440px-Asa_Akira_2_2014.jpg",
       Comments: []
     }
   ], // 화면에 보여질 포스트들
@@ -29,7 +28,7 @@ const dummyPost = {
   },
   content:
     "타노스가 전 우주의 모든 생명체 절반을 제거하기 위해 인피니티 건틀렛을 사용한 지 3주가 흐른 후, 캐럴 댄버스는 깊은 우주에서 토니 스타크와 네뷸라를 구하고 지구로 데려온다. 이들은 브루스 배너, 스티브 로저스, 토르, 로켓, 나타샤 로마노프, 제임스 로즈 등 남아있는 어벤져스 멤버들과 만나고 타노스를 찾고 기습하기 위해 지식을 이용한다. 이들은 인피니티 스톤의 효과를 되돌리기 위해 인피니티 스톤을 되찾고 사용하는 계획을 세우지만, 타노스는 인피니티 젬을 사용하는 걸 막기 위해 이미 파괴한 이후였다. 화가 난 토르는 타노스의 목을 베어버린다.",
-  Comments: [],
+  Comments: []
 };
 
 const dummyComment = {
@@ -116,7 +115,7 @@ const reducer = (state = initState, action) => {
       return {
         ...state,
         isAddingPost: false,
-        mainPosts: [dummyPost, ...state.mainPosts],
+        mainPosts: [action.data, ...state.mainPosts],
         postAdded: true
       };
     case ADD_POST_FAILURE:
@@ -153,6 +152,23 @@ const reducer = (state = initState, action) => {
         isAddingComment: false,
         addCommentError: action.error,
         commentAdded: false
+      };
+
+    case LOAD_MAIN_POSTS_REQUEST:
+      return {
+        ...state, // 리액트는 스테이트가 변경 다시 렌더링 ...state로 새로운 객체를 (다른 참조) 만들어줘서 다시 렌더링 될 수 있게 한다
+        mainPosts: []
+      };
+    case LOAD_MAIN_POSTS_SUCCESS:
+      return {
+        ...state,
+        mainPosts: action.data
+
+      };
+    case LOAD_MAIN_POSTS_FAILURE:
+      return {
+        ...state,
+       
       };
 
     default:

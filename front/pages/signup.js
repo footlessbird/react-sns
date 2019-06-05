@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
     그러면 의도치 않는 리렌더링이 발생됨
     그러므로 props로 넘겨주는 함수는 useCallback 필수 (자식컴포넌트에 전달하는 함수)
 */
+import PropTypes from 'prop-types';
+
 import Head from "next/head";
 import Router from "next/router";
 
@@ -15,6 +17,15 @@ import { Form, Input, Checkbox, Button } from "antd";
 
 import Layout from "../components/Layout";
 import { signUpAction, SIGN_UP_REQUEST } from "../reducers/user";
+
+const TextInput = ({ value }) => (
+  <div>{value}</div>
+);
+
+TextInput.propTypes = {
+  value: PropTypes.string,
+};
+
 
 //  custom hook
 export const useInput = (initValue = null) => {
@@ -113,8 +124,9 @@ const Signup = () => {
 
   return (
     <div>
-      <h1>Sign up</h1>
       <Form onSubmit={onSubmit} style={{ padding: 10 }}>
+      <TextInput value="135135" />
+
         <div>
           <label htmlFor="user-id">ID</label>
           <Input
@@ -167,7 +179,7 @@ const Signup = () => {
             </div>
           )}
         </div>
-        <div>
+        <div style={{marginTop: 10}}>
           <Button type="primary" htmlType="submit" loading={isSigningUp}>
             Done
           </Button>

@@ -1,48 +1,42 @@
-import React from "react";
-import {useSelector} from 'react-redux'
-import Link from "next/link";
-import PropTypes from "prop-types";
-import { Menu, Input, Button, Row, Col, Card, Avatar, Form } from "antd";
-import LoginForm from "./LoginForm";
-import UserProfile from "../components/ProfileForm";
+import React from 'react';
+import Link from 'next/link';
+import PropTypes from 'prop-types';
+import { Col, Input, Menu, Row } from 'antd';
+import { useSelector } from 'react-redux';
+import LoginForm from './LoginForm';
+import UserProfile from './UserProfile';
 
 const Layout = ({ children }) => {
-  const { isLoggedIn } = useSelector(state => state.user);
+  const { isLoggedIn, me } = useSelector(state => state.user);
   return (
     <div>
       <Menu mode="horizontal">
-        <Menu.Item key="home">
-          <Link href="/">
-            <a>Dear</a>
-          </Link>
-        </Menu.Item>
-        <Menu.Item key="profile">
-          <Link href="/profile">
-            <a>Profile</a>
-          </Link>
-        </Menu.Item>
-
+        <Menu.Item key="home"><Link href="/"><a>Dear</a></Link></Menu.Item>
+        <Menu.Item key="profile"><Link href="/profile"><a>Profile</a></Link></Menu.Item>
         <Menu.Item key="mail">
-          <Input.Search enterButton style={{ verticalAlign: "middle" }} />
+          <Input.Search enterButton style={{ verticalAlign: 'middle' }} />
         </Menu.Item>
       </Menu>
-      <Link href="/signup">
-        <Button>Sign up</Button>
-      </Link>
       <Row gutter={8}>
         <Col xs={24} md={6}>
-          {isLoggedIn ? <UserProfile /> : <LoginForm />}
+          {me
+            ? <UserProfile />
+            : <LoginForm />}
         </Col>
-        <Col xs={24} md={12} />
-        {children}
-        <Col xs={24} md={6} />
+        <Col xs={24} md={12}>
+          {children}
+        </Col>
+        <Col xs={24} md={6}>
+        <Link href="https://wwww.localhost:3000" ><a target="_blank">arcadeKid</a></Link>
+
+        </Col>
       </Row>
     </div>
   );
 };
 
 Layout.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default Layout;

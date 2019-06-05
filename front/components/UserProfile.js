@@ -6,35 +6,49 @@ import { logoutAction, LOG_OUT_REQUEST } from "../reducers/user";
 const UserProfile = () => {
   const { me } = useSelector(state => state.user);
   const dispatch = useDispatch();
-  
+
   const onLogout = useCallback(() => {
     dispatch({
       type: LOG_OUT_REQUEST
     });
   }, []);
   return (
-      <Card
-        // actions={[
-        //   <div key="tweet">
-        //     <p>Tweet</p>
-        //     {me.Post.length}
-        //   </div>,
-        //   <div key="following">
-        //     <p>Following</p>
-        //     {me.Followings.length}
-        //   </div>,
-        //   <div key="follower">
-        //     <p>Followers</p>
-        //     {me.Followers.length}
-        //   </div>
-        // ]}
-        >
-        <Card.Meta
-          avatar={<Avatar>{me.nickname[0]}</Avatar>}
-          title={me.nickname}
-        />
-        <Button onClick={onLogout}>Log Out</Button>
-      </Card>
+    // <Card
+    //   actions={[
+    //     <div key="tweet">
+    //       <p>Tweet</p>
+    //       {me.Post.length}
+    //     </div>,
+    //     <div key="following">
+    //       <p>Following</p>
+    //       {me.Followings.length}
+    //     </div>,
+    //     <div key="follower">
+    //       <p>Followers</p>
+    //       {me.Followers.length}
+    //     </div>
+    //   ]}
+    // >
+    //   <Card.Meta
+    //     avatar={<Avatar>{me.nickname[0]}</Avatar>}
+    //     title={me.nickname}
+    //   />
+    //   <Button onClick={onLogout}>Log Out</Button>
+    // </Card>
+
+    <Card
+      actions={[
+        // <div key="twit">Tweet<br />{me.Post.length}</div>,
+        // <div key="following">Following<br />{me.Followings.length}</div>,
+        // <div key="follower">Followers<br />{me.Followers.length}</div>,
+      ]}
+    >
+      <Card.Meta
+        avatar={<Avatar>{me.nickname[0]}</Avatar>}
+        title={me.nickname}
+      />
+      <Button onClick={onLogout}>Logout</Button>
+    </Card>
   );
 };
 

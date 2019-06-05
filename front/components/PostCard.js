@@ -1,42 +1,39 @@
-import React, { useState, useCallback, useEffect  } from "react";
-import { Button, Avatar, Card, Icon, Form, Input, List, Comment } from "antd";
-import PropTypes from "prop-types";
-import { useSelector, useDispatch } from "react-redux";
-import { ADD_COMMENT_REQUEST } from "../reducers/post";
+import React, { useCallback, useEffect, useState } from 'react';
+import { Avatar, Button, Card, Comment, Form, Icon, Input, List } from 'antd';
+import Link from 'next/link';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { ADD_COMMENT_REQUEST } from '../reducers/post';
 
 const PostCard = ({ post }) => {
   const [commentFormOpened, setCommentFormOpened] = useState(false);
-  const [commentText, setCommentText] = useState("");
+  const [commentText, setCommentText] = useState('');
   const { me } = useSelector(state => state.user);
+  const { commentAdded, isAddingComment } = useSelector(state => state.post);
   const dispatch = useDispatch();
-  const { commentAdded, isAddingComment } = useSelector(
-    state => state.post
-  );
 
   const onToggleComment = useCallback(() => {
-    setCommentFormOpened(prev => !prev); // 댓글창이 열려있으면 닫고 닫혀있으면 열 수 있도록
+    setCommentFormOpened(prev => !prev);
   }, []);
 
-  const onSubmitComment = useCallback(e => {
+  const onSubmitComment = useCallback((e) => {
     e.preventDefault();
     if (!me) {
-      return alert("Please sign in to comment");
+      return alert('로그인이 필요합니다.');
     }
     return dispatch({
       type: ADD_COMMENT_REQUEST,
-      data:{
-        postId: post.id
-      }
+      data: {
+        postId: post.id,
+      },
     });
   }, [me && me.id]);
 
   useEffect(() => {
-    return () => {
-      setCommentText('')
-    };
-  }, [commentAdded === true])
+    setCommentText('');
+  }, [commentAdded === true]);
 
-  const onChangeCommentText = useCallback(e => {
+  const onChangeCommentText = useCallback((e) => {
     setCommentText(e.target.value);
   }, []);
 
@@ -44,14 +41,14 @@ const PostCard = ({ post }) => {
     <div>
       <Card
         key={+post.createdAt}
-        cover={post.img && <img src={post.img} />}
+        cover={post.img && <img alt="example" src={post.img} />}
         actions={[
           <Icon type="retweet" key="retweet" />,
           <Icon type="heart" key="heart" />,
           <Icon type="message" key="message" onClick={onToggleComment} />,
-          <Icon type="ellipsis" key="ellipsis" />
+          <Icon type="ellipsis" key="ellipsis" />,
         ]}
-        extra={<Button>Follow</Button>}
+        extra={<Button>팔로우</Button>}
       >
         <Card.Meta
           avatar={<Avatar>{post.User.nickname[0]}</Avatar>}
@@ -60,21 +57,15 @@ const PostCard = ({ post }) => {
         />
       </Card>
       {commentFormOpened && (
-        <div>
+        <>
           <Form onSubmit={onSubmitComment}>
             <Form.Item>
-              <Input.TextArea
-                rows={4}
-                value={commentText}
-                onChange={onChangeCommentText}
-              />
+              <Input.TextArea rows={4} value={commentText} onChange={onChangeCommentText} />
             </Form.Item>
-            <Button type="primary" htmlType="submit" loading={isAddingComment}>
-              Comment
-            </Button>
+            <Button type="primary" htmlType="submit" loading={isAddingComment}>삐약</Button>
           </Form>
           <List
-            header={`${post.Comments ? post.Comments.length : 0} comments`}
+            header={`${post.Comments ? post.Comments.length : 0} 댓글`}
             itemLayout="horizontal"
             dataSource={post.Comments || []}
             renderItem={item => (
@@ -87,7 +78,7 @@ const PostCard = ({ post }) => {
               </li>
             )}
           />
-        </div>
+        </>
       )}
     </div>
   );
@@ -98,8 +89,8 @@ PostCard.propTypes = {
     User: PropTypes.object,
     content: PropTypes.string,
     img: PropTypes.string,
-    createdAt: PropTypes.object
-  })
+    createdAt: PropTypes.object,
+  }),
 };
 
 export default PostCard;

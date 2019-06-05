@@ -10,15 +10,6 @@ const sequelize = new Sequelize(
   config
 );
 
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log("Connection has been established successfully.");
-  })
-  .catch(err => {
-    console.error("Unable to connect to the database:", err);
-  });
-
 db.Comment = require("./comment")(sequelize, Sequelize);
 db.Hashtag = require("./hashtag")(sequelize, Sequelize);
 db.Image = require("./image")(sequelize, Sequelize);

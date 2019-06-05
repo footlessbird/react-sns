@@ -8,7 +8,7 @@ const dummyUser = {
 };
 
 export const initState = {
-  isLoggedIn: false, // 로그인 여부
+  // isLoggedIn: false, // 로그인 여부
   isLoggingOut: false, // 로그아웃 시도중
   isLoggingIn: false, // 로그인 시도중
   loginError: "", // 로그인 에러
@@ -94,31 +94,38 @@ const reducer = (state = initState, action) => {
         // user: action.data
         // user: dummyUser
         isLoggingIn: true,
-        loginError: ''
+        loginError: ""
       };
 
     case LOG_IN_SUCCESS: {
       return {
         ...state,
         isLoggingIn: false,
-        isLoggedIn: true,
-        me: action.data,
+        // isLoggedIn: true,
+        me: action.data
       };
     }
     case LOG_IN_FAILURE: {
       return {
         ...state,
         isLoggingIn: false,
-        isLoggedIn: false,
+        // isLoggedIn: false,
         loginError: action.error,
         me: null
       };
     }
-    case LOG_OUT_REQUEST:
+    case LOG_OUT_REQUEST: {
       return {
         ...state,
-        isLoggedIn: false,
-        user: null
+        isLoggingOut: true
+      };
+    }
+    case LOG_OUT_SUCCESS:
+      return {
+        ...state,
+        isLoggingOut: false,
+        // isLoggedIn: false,
+        me: null
       };
     case SIGN_UP_REQUEST:
       return {
@@ -138,6 +145,19 @@ const reducer = (state = initState, action) => {
         ...state,
         isSigningUp: false,
         signUpError: action.error
+      };
+    case LOAD_USER_REQUEST:
+      return {
+        ...state
+      };
+    case LOAD_USER_SUCCESS:
+      return {
+        ...state,
+        me: action.data
+      };
+    case LOAD_USER_FAILURE:
+      return {
+        ...state
       };
 
     default:

@@ -4,7 +4,14 @@ const passport = require("passport");
 const db = require("../models");
 const router = express.Router();
 
-router.get("/", (req, res) => {});
+router.get("/", (req, res) => {
+  if (!req.user) {
+    return res.status(401).send("Please log in first");
+  }
+  const user = Object.assign({}, req.user.toJSON());
+  delete user.password;
+  return res.json(user);
+});
 
 router.post("/", async (req, res, next) => {
   try {
@@ -33,30 +40,77 @@ router.post("/", async (req, res, next) => {
 router.get("/:id", (req, res) => {});
 
 router.post("/logout", (req, res) => {
-    req.logout();
-    req.session.destroy()
-    res.send('Log out succeeded')
+  req.logout();
+  req.session.destroy();
+  res.send("Log out succeeded");
 });
 
+// router.post("/login", (req, res, next) => {
+//   passport.authenticate("local", (err, user, info) => {
+//     if (err) {
+//       // 서버 에러
+//       console.log(err);
+//       return next(err);
+//     }
+//     if (info) {
+//       // 로직 에러
+//       return res.status(401).send(info.reason);
+//     }
+//     return req.login(user, loginErr => {
+//       if (loginErr) {
+//         return next(loginErr);
+//       }
+//     //   console.log('login success', req.user)
+//       const filteredUser = Object.assign({}, user.toJSON()); // 비번 노출을 막기위해 유저 얕은 복사?
+//       delete filteredUser.password; // 비번은 지워준다
+//       return res.json(filteredUser);
+//     });
+//   })(req, res, next);
+// });
+
 router.post("/login", (req, res, next) => {
+  // POST /api/user/login
   passport.authenticate("local", (err, user, info) => {
     if (err) {
       // 서버 에러
-      console.log(err);
+      console.error(err);
       return next(err);
     }
     if (info) {
       // 로직 에러
       return res.status(401).send(info.reason);
     }
-    return req.login(user, loginErr => {
-      if (loginErr) {
-        return next(loginErr);
+    return req.login(user, async loginErr => {
+      try {
+        if (loginErr) {
+          return next(loginErr);
+        }
+        const fullUser = await db.User.findOne({
+          where: { id: user.id },
+          include: [
+            {
+              model: db.Post,
+              as: "Posts",
+              attributes: ["id"]
+            },
+            {
+              model: db.User,
+              as: "Followings",
+              attributes: ["id"]
+            },
+            {
+              model: db.User,
+              as: "Followers",
+              attributes: ["id"]
+            }
+          ],
+          attributes: ["id", "nickname", "userId"] // 비밀번호는 보내지 않음
+        });
+        console.log(fullUser);
+        return res.json(fullUser);
+      } catch (e) {
+        next(e);
       }
-    //   console.log('login success', req.user)
-      const filteredUser = Object.assign({}, user.toJSON()); // 비번 노출을 막기위해 유저 얕은 복사?
-      delete filteredUser.password; // 비번은 지워준다
-      return res.json(filteredUser);
     });
   })(req, res, next);
 });

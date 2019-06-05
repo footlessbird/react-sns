@@ -3,7 +3,7 @@ import { Input, Button, Form } from "antd";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { useInput } from "../pages/signup";
-import { loginAction, LOG_IN_REQUEST } from "../reducers/user";
+import { LOG_IN_REQUEST } from "../reducers/user";
 
 const LoginForm = () => {
   const [id, onChangeId] = useInput();
@@ -31,34 +31,22 @@ const LoginForm = () => {
   );
   return (
     <div>
-      <Form onSubmit={onSubmitForm} style={{ padding: "10px" }}>
-        <div>
-          <label htmlFor="user-id">ID</label>
-          <br />
-          <Input name="user-id" value={id} onChange={onChangeId} required />
-        </div>
-        <div>
-          <label htmlFor="user-id">Password</label>
-          <br />
-          <Input
-            name="user-password"
-            type="password"
-            value={password}
-            onChange={onChangePassword}
-            required
-          />
-        </div>
-        <div style={{ marginTop: "10px" }}>
-          <Button type="primary" htmlType="submit" loading={isLoggingIn}>
-            Log In
-          </Button>
-          <Link href="/signup">
-            <a>
-              <Button>Sign up</Button>
-            </a>
-          </Link>
-        </div>
-      </Form>
+      <Form onSubmit={onSubmitForm} style={{ padding: '10px' }}>
+      <div>
+        <label htmlFor="user-id">ID</label>
+        <br />
+        <Input name="user-id" value={id} onChange={onChangeId} required />
+      </div>
+      <div>
+        <label htmlFor="user-password">Password</label>
+        <br />
+        <Input name="user-password" value={password} onChange={onChangePassword} type="password" required />
+      </div>
+      <div style={{ marginTop: '10px' }}>
+        <Button type="primary" htmlType="submit" loading={isLoggingIn}>Login</Button>
+        <Link href="/signup"><a><Button>Signup</Button></a></Link>
+      </div>
+    </Form>
     </div>
   );
 };

@@ -13,7 +13,6 @@ import rootSaga from "../sagas";
 const Dear = ({ Component, store }) => {
   return (
     <Provider store={store}>
-      <div>
         <Head>
           <title>Dear</title>
           <link
@@ -24,8 +23,7 @@ const Dear = ({ Component, store }) => {
         </Head>
         <Layout>
           <Component />
-        </Layout>
-      </div>
+        </Layout> 
     </Provider>
   );
 };
