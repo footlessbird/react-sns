@@ -131,7 +131,7 @@ var PostCard = function PostCard(_ref) {
       commentFormOpened = _useState2[0],
       setCommentFormOpened = _useState2[1];
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(''),
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState4 = Object(_babel_runtime_corejs2_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState3, 2),
       commentText = _useState4[0],
       setCommentText = _useState4[1];
@@ -157,7 +157,7 @@ var PostCard = function PostCard(_ref) {
     e.preventDefault();
 
     if (!me) {
-      return alert('로그인이 필요합니다.');
+      return alert("로그인이 필요합니다.");
     }
 
     return dispatch({
@@ -168,7 +168,7 @@ var PostCard = function PostCard(_ref) {
     });
   }, [me && me.id]);
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    setCommentText('');
+    setCommentText("");
   }, [commentAdded === true]);
   var onChangeCommentText = Object(react__WEBPACK_IMPORTED_MODULE_1__["useCallback"])(function (e) {
     setCommentText(e.target.value);
@@ -176,7 +176,7 @@ var PostCard = function PostCard(_ref) {
   return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 41
+      lineNumber: 44
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Card"], {
@@ -186,7 +186,7 @@ var PostCard = function PostCard(_ref) {
       src: post.img,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 44
+        lineNumber: 47
       },
       __self: this
     }),
@@ -195,7 +195,7 @@ var PostCard = function PostCard(_ref) {
       key: "retweet",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 46
+        lineNumber: 49
       },
       __self: this
     }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Icon"], {
@@ -203,7 +203,7 @@ var PostCard = function PostCard(_ref) {
       key: "heart",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 47
+        lineNumber: 50
       },
       __self: this
     }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Icon"], {
@@ -212,7 +212,7 @@ var PostCard = function PostCard(_ref) {
       onClick: onToggleComment,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 48
+        lineNumber: 51
       },
       __self: this
     }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Icon"], {
@@ -220,48 +220,74 @@ var PostCard = function PostCard(_ref) {
       key: "ellipsis",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 49
+        lineNumber: 52
       },
       __self: this
     })],
     extra: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 51
+        lineNumber: 54
       },
       __self: this
     }, "\uD314\uB85C\uC6B0"),
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 42
+      lineNumber: 45
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Card"].Meta, {
     avatar: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Avatar"], {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 54
+        lineNumber: 57
       },
       __self: this
     }, post.User.nickname[0]),
     title: post.User.nickname,
-    description: post.content,
+    description: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 60
+      },
+      __self: this
+    }, post.content.split(/(#[^\s]+)/g).map(function (v) {
+      if (v.match(/#[^\s]+/)) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_3___default.a, {
+          href: "/hashtag",
+          key: v,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 64
+          },
+          __self: this
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 65
+          },
+          __self: this
+        }, v));
+      }
+
+      return v;
+    })),
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 53
+      lineNumber: 56
     },
     __self: this
   })), commentFormOpened && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Form"], {
     onSubmit: onSubmitComment,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 61
+      lineNumber: 77
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Form"].Item, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 62
+      lineNumber: 78
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Input"].TextArea, {
@@ -270,7 +296,7 @@ var PostCard = function PostCard(_ref) {
     onChange: onChangeCommentText,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 63
+      lineNumber: 79
     },
     __self: this
   })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
@@ -279,7 +305,7 @@ var PostCard = function PostCard(_ref) {
     loading: isAddingComment,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 65
+      lineNumber: 85
     },
     __self: this
   }, "\uC090\uC57D")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["List"], {
@@ -290,7 +316,7 @@ var PostCard = function PostCard(_ref) {
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 72
+          lineNumber: 94
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Comment"], {
@@ -298,21 +324,21 @@ var PostCard = function PostCard(_ref) {
         avatar: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Avatar"], {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 75
+            lineNumber: 97
           },
           __self: this
         }, item.User.nickname[0]),
         content: item.content,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 73
+          lineNumber: 95
         },
         __self: this
       }));
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 67
+      lineNumber: 89
     },
     __self: this
   })));
@@ -1536,16 +1562,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var initState = {
-  mainPosts: [{
-    id: 1,
-    User: {
-      id: 1,
-      nickname: "arcadeKid"
-    },
-    content: "A very first post",
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Asa_Akira_2_2014.jpg/440px-Asa_Akira_2_2014.jpg",
-    Comments: []
-  }],
+  mainPosts: [// {
+    //   id: 1,
+    //   User: {
+    //     id: 1,
+    //     nickname: "arcadeKid"
+    //   },
+    //   content: "A very first post",
+    //   img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Asa_Akira_2_2014.jpg/440px-Asa_Akira_2_2014.jpg",
+    //   Comments: []
+    // }
+  ],
   // 화면에 보여질 포스트들
   imagePaths: [],
   // 미리보기 이미지 경로
@@ -1558,25 +1585,26 @@ var initState = {
   isAddingComment: false,
   addCommentError: "",
   commentAdded: false
-};
-var dummyPost = {
-  id: 2,
-  User: {
-    id: 1,
-    nickname: "arcadeKid"
-  },
-  content: "타노스가 전 우주의 모든 생명체 절반을 제거하기 위해 인피니티 건틀렛을 사용한 지 3주가 흐른 후, 캐럴 댄버스는 깊은 우주에서 토니 스타크와 네뷸라를 구하고 지구로 데려온다. 이들은 브루스 배너, 스티브 로저스, 토르, 로켓, 나타샤 로마노프, 제임스 로즈 등 남아있는 어벤져스 멤버들과 만나고 타노스를 찾고 기습하기 위해 지식을 이용한다. 이들은 인피니티 스톤의 효과를 되돌리기 위해 인피니티 스톤을 되찾고 사용하는 계획을 세우지만, 타노스는 인피니티 젬을 사용하는 걸 막기 위해 이미 파괴한 이후였다. 화가 난 토르는 타노스의 목을 베어버린다.",
-  Comments: []
-};
-var dummyComment = {
-  id: 1,
-  User: {
-    id: 1,
-    nickname: "Vancouver"
-  },
-  createdAt: new Date(),
-  content: "Say my name 🔱"
-};
+}; // const dummyPost = {
+//   id: 2,
+//   User: {
+//     id: 1,
+//     nickname: "arcadeKid"
+//   },
+//   content:
+//     "타노스가 전 우주의 모든 생명체 절반을 제거하기 위해 인피니티 건틀렛을 사용한 지 3주가 흐른 후, 캐럴 댄버스는 깊은 우주에서 토니 스타크와 네뷸라를 구하고 지구로 데려온다. 이들은 브루스 배너, 스티브 로저스, 토르, 로켓, 나타샤 로마노프, 제임스 로즈 등 남아있는 어벤져스 멤버들과 만나고 타노스를 찾고 기습하기 위해 지식을 이용한다. 이들은 인피니티 스톤의 효과를 되돌리기 위해 인피니티 스톤을 되찾고 사용하는 계획을 세우지만, 타노스는 인피니티 젬을 사용하는 걸 막기 위해 이미 파괴한 이후였다. 화가 난 토르는 타노스의 목을 베어버린다.",
+//   Comments: []
+// };
+// const dummyComment = {
+//   id: 1,
+//   User: {
+//     id: 1,
+//     nickname: "Vancouver"
+//   },
+//   createdAt: new Date(),
+//   content: "Say my name 🔱"
+// };
+
 var LOAD_MAIN_POSTS_REQUEST = "LOAD_MAIN_POSTS_REQUEST";
 var LOAD_MAIN_POSTS_SUCCESS = "LOAD_MAIN_POSTS_SUCCESS";
 var LOAD_MAIN_POSTS_FAILURE = "LOAD_MAIN_POSTS_FAILURE";
@@ -1664,7 +1692,7 @@ var reducer = function reducer() {
         return v.id === action.data.postId;
       });
       var post = state.mainPosts[postIndex];
-      var Comments = [].concat(Object(_babel_runtime_corejs2_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(post.Comments), [dummyComment]);
+      var Comments = [].concat(Object(_babel_runtime_corejs2_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(post.Comments), [action.data.comment]);
 
       var mainPosts = Object(_babel_runtime_corejs2_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(state.mainPosts);
 
