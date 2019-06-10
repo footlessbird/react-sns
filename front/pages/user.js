@@ -30,17 +30,17 @@ const User = ({ id }) => {
             <div key="twit">
               Tweet
               <br />
-              {me.Post.length}
+              {userInfo.Posts}
             </div>,
             <div key="following">
               Following
               <br />
-              {me.Followings.length}
+              {userInfo.Followings}
             </div>,
             <div key="follower">
               Followers
               <br />
-              {me.Followers.length}
+              {userInfo.Followers}
             </div>
           ]}
         >
