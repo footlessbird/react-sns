@@ -9,10 +9,11 @@ router.get("/:tag", async (req, res, next) => {
       include: [
         {
           model: db.Hashtag,
-          where: { name: decodeURIComponent(req.params.name) }
+          where: { name: decodeURIComponent(req.params.tag) }
         },
         {
-          model: db.User
+          model: db.User,
+          attributes: ['id', 'nickname']
         }
       ]
     });

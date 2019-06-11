@@ -10,7 +10,7 @@ import PostCard from "../components/PostCard";
 const User = ({ id }) => {
   const dispatch = useDispatch();
   const { mainPosts } = useSelector(state => state.post);
-  const { userInfo } = useSelector(state => state.post);
+  const { userInfo } = useSelector(state => state.user);
 
   useEffect(() => {
     dispatch({
@@ -23,6 +23,7 @@ const User = ({ id }) => {
     });
   }, []);
   return (
+    
     <div>
       {userInfo ? (
         <Card
@@ -51,7 +52,7 @@ const User = ({ id }) => {
         </Card>
       ) : null}
       {mainPosts.map(c => {
-        <PostCard key={+c.createdAt} post={c} />;
+        return <PostCard key={+c.createdAt} post={c} />;
       })}
     </div>
   );
