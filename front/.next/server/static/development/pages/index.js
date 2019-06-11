@@ -151,6 +151,13 @@ var PostCard = function PostCard(_ref) {
     setCommentFormOpened(function (prev) {
       return !prev;
     });
+
+    if (!commentFormOpened) {
+      dispatch({
+        type: _reducers_post__WEBPACK_IMPORTED_MODULE_6__["LOAD_COMMENTS_REQUEST"],
+        data: post.id
+      });
+    }
   }, []);
   var onSubmitComment = Object(react__WEBPACK_IMPORTED_MODULE_1__["useCallback"])(function (e) {
     e.preventDefault();
@@ -162,10 +169,11 @@ var PostCard = function PostCard(_ref) {
     return dispatch({
       type: _reducers_post__WEBPACK_IMPORTED_MODULE_6__["ADD_COMMENT_REQUEST"],
       data: {
-        postId: post.id
+        postId: post.id,
+        content: commentText
       }
     });
-  }, [me && me.id]);
+  }, [me && me.id, commentText]);
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
     setCommentText("");
   }, [commentAdded === true]);
@@ -195,13 +203,25 @@ var PostCard = function PostCard(_ref) {
     extra: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], null, "\uD314\uB85C\uC6B0")
   }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Card"].Meta, {
     avatar: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_3___default.a, {
-      href: "/user/".concat(post.User.id)
+      href: {
+        pathname: "/user",
+        query: {
+          id: post.User.id
+        }
+      },
+      as: "/user/".concat(post.User.id)
     }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Avatar"], null, post.User.nickname[0]))),
     title: post.User.nickname,
     description: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, post.content.split(/(#[^\s]+)/g).map(function (v) {
       if (v.match(/#[^\s]+/)) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_3___default.a, {
-          href: "/hashtag/".concat(v.slice(1)),
+          href: {
+            pathname: "/hashtag",
+            query: {
+              tag: v.slice(1)
+            }
+          },
+          as: "/hashtag/".concat(v.slice(1)),
           key: v
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", null, v));
       }
@@ -226,7 +246,13 @@ var PostCard = function PostCard(_ref) {
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Comment"], {
         author: item.User.nickname,
         avatar: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_3___default.a, {
-          href: "/user/".concat(item.User.User.id)
+          href: {
+            pathname: "/user",
+            query: {
+              id: item.User.id
+            }
+          },
+          as: "/user/".concat(item.User.id)
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Avatar"], null, item.User.nickname[0]))),
         content: item.content
       }));
@@ -240,7 +266,7 @@ PostCard.propTypes = {
     content: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.string,
     img: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.string,
     createdAt: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.object
-  })
+  }).isRequired
 };
 /* harmony default export */ __webpack_exports__["default"] = (PostCard);
 
@@ -1407,7 +1433,7 @@ var Home = function Home() {
 /*!**************************!*\
   !*** ./reducers/post.js ***!
   \**************************/
-/*! exports provided: initState, LOAD_MAIN_POSTS_REQUEST, LOAD_MAIN_POSTS_SUCCESS, LOAD_MAIN_POSTS_FAILURE, LOAD_HASHTAG_POSTS_REQUEST, LOAD_HASHTAG_POSTS_SUCCESS, LOAD_HASHTAG_POSTS_FAILURE, LOAD_USER_POSTS_REQUEST, LOAD_USER_POSTS_SUCCESS, LOAD_USER_POSTS_FAILURE, UPLOAD_IMAGES_REQUEST, UPLOAD_IMAGES_SUCCESS, UPLOAD_IMAGES_FAILURE, REMOVE_IMAGE, ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE, LIKE_POST_REQUEST, LIKE_POST_SUCCESS, LIKE_POST_FAILURE, UNLIKE_POST_REQUEST, UNLIKE_POST_SUCCESS, UNLIKE_POST_FAILURE, ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE, LOAD_COMMENT_REQUEST, LOAD_COMMENT_SUCCESS, LOAD_COMMENT_FAILURE, RETWEET_REQUEST, RETWEET_SUCCESS, RETWEET_FAILURE, REMOVE_POST_REQUEST, REMOVE_POST_SUCCESS, REMOVE_POST_FAILURE, default */
+/*! exports provided: initState, LOAD_MAIN_POSTS_REQUEST, LOAD_MAIN_POSTS_SUCCESS, LOAD_MAIN_POSTS_FAILURE, LOAD_HASHTAG_POSTS_REQUEST, LOAD_HASHTAG_POSTS_SUCCESS, LOAD_HASHTAG_POSTS_FAILURE, LOAD_USER_POSTS_REQUEST, LOAD_USER_POSTS_SUCCESS, LOAD_USER_POSTS_FAILURE, UPLOAD_IMAGES_REQUEST, UPLOAD_IMAGES_SUCCESS, UPLOAD_IMAGES_FAILURE, REMOVE_IMAGE, ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE, LIKE_POST_REQUEST, LIKE_POST_SUCCESS, LIKE_POST_FAILURE, UNLIKE_POST_REQUEST, UNLIKE_POST_SUCCESS, UNLIKE_POST_FAILURE, ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE, LOAD_COMMENTS_REQUEST, LOAD_COMMENTS_SUCCESS, LOAD_COMMENTS_FAILURE, RETWEET_REQUEST, RETWEET_SUCCESS, RETWEET_FAILURE, REMOVE_POST_REQUEST, REMOVE_POST_SUCCESS, REMOVE_POST_FAILURE, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1438,9 +1464,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_COMMENT_REQUEST", function() { return ADD_COMMENT_REQUEST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_COMMENT_SUCCESS", function() { return ADD_COMMENT_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_COMMENT_FAILURE", function() { return ADD_COMMENT_FAILURE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOAD_COMMENT_REQUEST", function() { return LOAD_COMMENT_REQUEST; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOAD_COMMENT_SUCCESS", function() { return LOAD_COMMENT_SUCCESS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOAD_COMMENT_FAILURE", function() { return LOAD_COMMENT_FAILURE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOAD_COMMENTS_REQUEST", function() { return LOAD_COMMENTS_REQUEST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOAD_COMMENTS_SUCCESS", function() { return LOAD_COMMENTS_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOAD_COMMENTS_FAILURE", function() { return LOAD_COMMENTS_FAILURE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RETWEET_REQUEST", function() { return RETWEET_REQUEST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RETWEET_SUCCESS", function() { return RETWEET_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RETWEET_FAILURE", function() { return RETWEET_FAILURE; });
@@ -1520,9 +1546,9 @@ var UNLIKE_POST_FAILURE = "UNLIKE_POST_FAILURE";
 var ADD_COMMENT_REQUEST = "ADD_COMMENT_REQUEST";
 var ADD_COMMENT_SUCCESS = "ADD_COMMENT_SUCCESS";
 var ADD_COMMENT_FAILURE = "ADD_COMMENT_FAILURE";
-var LOAD_COMMENT_REQUEST = "LOAD_COMMENT_REQUEST";
-var LOAD_COMMENT_SUCCESS = "LOAD_COMMENT_SUCCESS";
-var LOAD_COMMENT_FAILURE = "LOAD_COMMENT_FAILURE";
+var LOAD_COMMENTS_REQUEST = "LOAD_COMMENTS_REQUEST";
+var LOAD_COMMENTS_SUCCESS = "LOAD_COMMENTS_SUCCESS";
+var LOAD_COMMENTS_FAILURE = "LOAD_COMMENTS_FAILURE";
 var RETWEET_REQUEST = "RETWEET_REQUEST";
 var RETWEET_SUCCESS = "RETWEET_SUCCESS";
 var RETWEET_FAILURE = "RETWEET_FAILURE";
@@ -1598,9 +1624,28 @@ var reducer = function reducer() {
     case ADD_COMMENT_FAILURE:
       return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
         isAddingComment: false,
-        addCommentError: action.error,
-        commentAdded: false
+        addCommentError: action.error // commentAdded: false
+
       });
+
+    case LOAD_COMMENTS_SUCCESS:
+      {
+        var _postIndex = state.mainPosts.findIndex(function (v) {
+          return v.id === action.data.postId;
+        });
+
+        var _post = state.mainPosts[_postIndex];
+        var _Comments = action.data.comments;
+
+        var _mainPosts = Object(_babel_runtime_corejs2_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(state.mainPosts);
+
+        _mainPosts[_postIndex] = Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, _post, {
+          Comments: _Comments
+        });
+        return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
+          mainPosts: _mainPosts
+        });
+      }
 
     case LOAD_MAIN_POSTS_REQUEST:
     case LOAD_HASHTAG_POSTS_REQUEST:
