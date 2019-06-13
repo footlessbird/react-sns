@@ -284,190 +284,215 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_corejs2_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/slicedToArray */ "./node_modules/@babel/runtime-corejs2/helpers/esm/slicedToArray.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "react-redux");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! antd */ "antd");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! antd */ "antd");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "react-redux");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _reducers_post__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../reducers/post */ "./reducers/post.js");
 
-var _jsxFileName = "/Users/kangsung-yun/react-sns/front/components/PostForm.js";
+// import React, { useCallback, useState, useEffect, useRef } from "react";
+// import { useSelector, useDispatch } from "react-redux";
+// import { Form, Input, Button } from "antd";
+// import { ADD_POST_REQUEST, UPLOAD_IMAGES_REQUEST } from "../reducers/post";
+// const PostForm = () => {
+//   const dispatch = useDispatch();
+//   const { imagePaths, isAddingPost, postAdded } = useSelector(
+//     state => state.post
+//   );
+//   const imageInput = useRef();
+//   const [text, setText] = useState("");
+//   console.log(imagePaths);
+//   useEffect(() => {
+//     setText("");
+//   }, [postAdded === true]);
+//   const onSubmitForm = useCallback(
+//     e => {
+//       e.preventDefault();
+//       if (!text || !text.trim()) {
+//         return alert("Please write some content for your post");
+//       }
+//       dispatch({
+//         type: ADD_POST_REQUEST,
+//         data: {
+//           content: text.trim()
+//         }
+//       });
+//     },
+//     [text]
+//   );
+//   const onChangeText = useCallback(e => {
+//     setText(e.target.value);
+//   }, []);
+//   const onChangeImages = useCallback(e => {
+//     console.log(e.target.files);
+//     const imageFormData = new FormData();
+//     [].forEach.call(e.target.files, f => {
+//       imageFormData.append("image", f);
+//     });
+//     dispatch({
+//       type: UPLOAD_IMAGES_REQUEST,
+//       data: imageFormData
+//     });
+//   }, []);
+//   const onClickImageUpload = useCallback(() => {
+//     imageInput.current.click();
+//   }, [imageInput.current]);
+//   return (
+//     <Form
+//       style={{ margin: "10px 0 20px" }}
+//       encType="multipart/form-data"
+//       onSubmit={onSubmitForm}
+//     >
+//       <Input.TextArea
+//         maxLength={140}
+//         placeholder="Tell your story to share with Dear"
+//         value={text}
+//         onChange={onChangeText}
+//       />
+//       <div>
+//         <input
+//           type="file"
+//           multiple
+//           hidden
+//           ref={imageInput}
+//           onChange={onChangeImages}
+//         />
+//         <Button onClick={onClickImageUpload}>Image Upload</Button>
+//         <Button
+//           type="primary"
+//           style={{ float: "right" }}
+//           htmlType="submit"
+//           loading={isAddingPost}
+//         >
+//           Post
+//         </Button>
+//       </div>
+//       <div>
+//         {imagePaths.map(v => (
+//           <div key={v} style={{ display: "inline-block" }}>
+//             <img
+//               src={`http://localhost:3000/${v}`}
+//               style={{ width: "200px" }}
+//               alt={v}
+//             />
+//             <div>
+//               <Button>Remove</Button>
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     </Form>
+//   );
+// };
+// export default PostForm;
 
 
 
 
 
 var PostForm = function PostForm() {
-  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useDispatch"])();
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useDispatch"])();
 
-  var _useSelector = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(function (state) {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(''),
+      _useState2 = Object(_babel_runtime_corejs2_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
+      text = _useState2[0],
+      setText = _useState2[1];
+
+  var _useSelector = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useSelector"])(function (state) {
     return state.post;
   }),
       imagePaths = _useSelector.imagePaths,
       isAddingPost = _useSelector.isAddingPost,
       postAdded = _useSelector.postAdded;
 
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
-      _useState2 = Object(_babel_runtime_corejs2_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
-      text = _useState2[0],
-      setText = _useState2[1];
-
+  var imageInput = Object(react__WEBPACK_IMPORTED_MODULE_1__["useRef"])();
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    setText("");
+    setText('');
   }, [postAdded === true]);
   var onSubmitForm = Object(react__WEBPACK_IMPORTED_MODULE_1__["useCallback"])(function (e) {
     e.preventDefault();
 
     if (!text || !text.trim()) {
-      return alert("Please write some content for your post");
+      return alert('게시글을 작성하세요.');
     }
 
+    var formData = new FormData();
+    imagePaths.forEach(function (i) {
+      formData.append('image', i);
+    });
+    formData.append('content', text);
     dispatch({
       type: _reducers_post__WEBPACK_IMPORTED_MODULE_4__["ADD_POST_REQUEST"],
-      data: {
-        content: text.trim()
-      }
+      data: formData
     });
-  }, [text]);
+  }, [text, imagePaths]);
   var onChangeText = Object(react__WEBPACK_IMPORTED_MODULE_1__["useCallback"])(function (e) {
     setText(e.target.value);
   }, []);
-  return (// <Form
-    //   style={{ margin: '10px 0 20px' }}
-    //   encType="multipart/form-data"
-    //   onSubmit={onSubmitForm}
-    // >
-    //   <Input.TextArea
-    //     maxLength={140}
-    //     placeholder="Tell your story to share with Dear"
-    //     value={text}
-    //     onChange={onChangeText}
-    //   />
-    //   <div>
-    //     <input type="file" multiple hidden />
-    //     <Button>Upload Image</Button>
-    //     <Button
-    //       type="primary"
-    //       htmlType="submit"
-    //       loading={isAddingPost}
-    //       style={{ float: 'right' }}
-    //     >
-    //       Post
-    //     </Button>
-    //   </div>
-    //   <div>
-    //     {imagePaths.map(v => {
-    //       return (
-    //         <div key={v} style={{ display: 'inline-block' }}>
-    //           <img
-    //             src={`http://localhost:3000/${v}`}
-    //             style={{ width: '200px' }}
-    //             alt={v}
-    //           />
-    //           <div>
-    //             <Button>Remove</Button>
-    //           </div>
-    //         </div>
-    //       );
-    //     })}
-    //   </div>
-    // </Form>
-    react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Form"], {
+  var onChangeImages = Object(react__WEBPACK_IMPORTED_MODULE_1__["useCallback"])(function (e) {
+    console.log(e.target.files);
+    var imageFormData = new FormData();
+    [].forEach.call(e.target.files, function (f) {
+      imageFormData.append('image', f);
+    });
+    dispatch({
+      type: _reducers_post__WEBPACK_IMPORTED_MODULE_4__["UPLOAD_IMAGES_REQUEST"],
+      data: imageFormData
+    });
+  }, []);
+  var onClickImageUpload = Object(react__WEBPACK_IMPORTED_MODULE_1__["useCallback"])(function () {
+    imageInput.current.click();
+  }, [imageInput.current]);
+  var onRemoveImage = Object(react__WEBPACK_IMPORTED_MODULE_1__["useCallback"])(function (index) {
+    return function () {
+      dispatch({
+        type: _reducers_post__WEBPACK_IMPORTED_MODULE_4__["REMOVE_IMAGE"],
+        index: index
+      });
+    };
+  }, []);
+  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Form"], {
+    style: {
+      margin: '10px 0 20px'
+    },
+    encType: "multipart/form-data",
+    onSubmit: onSubmitForm
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Input"].TextArea, {
+    maxLength: 140,
+    placeholder: "\uC5B4\uB5A4 \uC2E0\uAE30\uD55C \uC77C\uC774 \uC788\uC5C8\uB098\uC694?",
+    value: text,
+    onChange: onChangeText
+  }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+    type: "file",
+    multiple: true,
+    hidden: true,
+    ref: imageInput,
+    onChange: onChangeImages
+  }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+    onClick: onClickImageUpload
+  }, "\uC774\uBBF8\uC9C0 \uC5C5\uB85C\uB4DC"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+    type: "primary",
+    style: {
+      float: 'right'
+    },
+    htmlType: "submit",
+    loading: isAddingPost
+  }, "\uC9F9\uC9F9")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, imagePaths.map(function (v, i) {
+    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      key: v,
       style: {
-        margin: "10px 0 20px"
-      },
-      encType: "multipart/form-data",
-      onSubmit: onSubmitForm,
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 80
-      },
-      __self: this
-    }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Input"].TextArea, {
-      maxLength: 140,
-      placeholder: "Tell your story to share with Dear",
-      value: text,
-      onChange: onChangeText,
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 85
-      },
-      __self: this
-    }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 91
-      },
-      __self: this
-    }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
-      type: "file",
-      multiple: true,
-      hidden: true,
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 92
-      },
-      __self: this
-    }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"], {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 93
-      },
-      __self: this
-    }, "Image Upload"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"], {
-      type: "primary",
+        display: 'inline-block'
+      }
+    }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+      src: "http://localhost:3000/".concat(v),
       style: {
-        float: "right"
+        width: '200px'
       },
-      htmlType: "submit",
-      loading: isAddingPost,
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 94
-      },
-      __self: this
-    }, "Post")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 103
-      },
-      __self: this
-    }, imagePaths.map(function (v) {
-      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        key: v,
-        style: {
-          display: "inline-block"
-        },
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 105
-        },
-        __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
-        src: "http://localhost:3000/".concat(v),
-        style: {
-          width: "200px"
-        },
-        alt: v,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 106
-        },
-        __self: this
-      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 111
-        },
-        __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"], {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 112
-        },
-        __self: this
-      }, "Remove")));
-    })))
-  );
+      alt: v
+    }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+      onClick: onRemoveImage(i)
+    }, "\uC81C\uAC70")));
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (PostForm);
@@ -1573,6 +1598,24 @@ var reducer = function reducer() {
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
+    case UPLOAD_IMAGES_REQUEST:
+      return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state);
+
+    case UPLOAD_IMAGES_SUCCESS:
+      return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
+        imagePaths: [].concat(Object(_babel_runtime_corejs2_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(state.imagePaths), [action.data])
+      });
+
+    case UPLOAD_IMAGES_FAILURE:
+      return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state);
+
+    case REMOVE_IMAGE:
+      return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
+        imagePaths: state.imagePaths.filter(function (v, i) {
+          return i !== action.index;
+        })
+      });
+
     case ADD_POST_REQUEST:
       return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
         // 리액트는 스테이트가 변경 다시 렌더링 ...state로 새로운 객체를 (다른 참조) 만들어줘서 다시 렌더링 될 수 있게 한다

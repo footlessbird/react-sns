@@ -380,7 +380,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! antd */ "antd");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _reducers_user__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../reducers/user */ "./reducers/user.js");
-var _jsxFileName = "/Users/kangsung-yun/react-sns/front/components/UserProfile.js";
 
 
 
@@ -398,64 +397,51 @@ var UserProfile = function UserProfile() {
       type: _reducers_user__WEBPACK_IMPORTED_MODULE_3__["LOG_OUT_REQUEST"]
     });
   }, []);
-  return (// <Card
-    //   actions={[
-    //     <div key="tweet">
-    //       <p>Tweet</p>
-    //       {me.Post.length}
-    //     </div>,
-    //     <div key="following">
-    //       <p>Following</p>
-    //       {me.Followings.length}
-    //     </div>,
-    //     <div key="follower">
-    //       <p>Followers</p>
-    //       {me.Followers.length}
-    //     </div>
-    //   ]}
-    // >
-    //   <Card.Meta
-    //     avatar={<Avatar>{me.nickname[0]}</Avatar>}
-    //     title={me.nickname}
-    //   />
-    //   <Button onClick={onLogout}>Log Out</Button>
-    // </Card>
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Card"], {
-      actions: [// <div key="twit">Tweet<br />{me.Post.length}</div>,
-        // <div key="following">Following<br />{me.Followings.length}</div>,
-        // <div key="follower">Followers<br />{me.Followers.length}</div>,
-      ],
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 39
-      },
-      __self: this
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Card"].Meta, {
-      avatar: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Avatar"], {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 47
-        },
-        __self: this
-      }, me.nickname[0]),
-      title: me.nickname,
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 46
-      },
-      __self: this
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
-      onClick: onLogout,
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 50
-      },
-      __self: this
-    }, "Logout"))
-  );
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Card"], {
+    actions: [react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      key: "twit"
+    }, "Tweet", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), me.Posts.length), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      key: "following"
+    }, "Following", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), me.Followings.length), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      key: "follower"
+    }, "Followers", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), me.Followers.length)]
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Card"].Meta, {
+    avatar: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Avatar"], null, me.nickname[0]),
+    title: me.nickname
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+    onClick: onLogout
+  }, "Logout"));
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (UserProfile);
+/* harmony default export */ __webpack_exports__["default"] = (UserProfile); // import { Avatar, Card, Button } from 'antd';
+// import React, { useCallback } from 'react';
+// import { useSelector, useDispatch } from 'react-redux';
+// import { LOG_OUT_REQUEST } from '../reducers/user';
+// const UserProfile = () => {
+//   const { me } = useSelector(state => state.user);
+//   const dispatch = useDispatch();
+//   const onLogout = useCallback(() => {
+//     dispatch({
+//       type: LOG_OUT_REQUEST,
+//     });
+//   }, []);
+//   return (
+//     <Card
+//       actions={[
+//         <div key="twit">짹짹<br />{me.Posts.length}</div>,
+//         <div key="following">팔로잉<br />{me.Followings.length}</div>,
+//         <div key="follower">팔로워<br />{me.Followers.length}</div>,
+//       ]}
+//     >
+//       <Card.Meta
+//         avatar={<Avatar>{me.nickname[0]}</Avatar>}
+//         title={me.nickname}
+//       />
+//       <Button onClick={onLogout}>로그아웃</Button>
+//     </Card>
+//   );
+// };
+// export default UserProfile;
 
 /***/ }),
 
@@ -2066,6 +2052,24 @@ var reducer = function reducer() {
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
+    case UPLOAD_IMAGES_REQUEST:
+      return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state);
+
+    case UPLOAD_IMAGES_SUCCESS:
+      return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
+        imagePaths: [].concat(Object(_babel_runtime_corejs2_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(state.imagePaths), [action.data])
+      });
+
+    case UPLOAD_IMAGES_FAILURE:
+      return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state);
+
+    case REMOVE_IMAGE:
+      return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
+        imagePaths: state.imagePaths.filter(function (v, i) {
+          return i !== action.index;
+        })
+      });
+
     case ADD_POST_REQUEST:
       return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
         // 리액트는 스테이트가 변경 다시 렌더링 ...state로 새로운 객체를 (다른 참조) 만들어줘서 다시 렌더링 될 수 있게 한다
@@ -2486,6 +2490,12 @@ _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(l
 _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(watchLoadUserPosts),
     _marked13 =
 /*#__PURE__*/
+_babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(uploadImages),
+    _marked14 =
+/*#__PURE__*/
+_babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(watchUploadImages),
+    _marked15 =
+/*#__PURE__*/
 _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(postSaga);
 
 
@@ -2895,22 +2905,107 @@ function watchLoadUserPosts() {
     }
   }, _marked12);
 } ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// function uploadImagesAPI(formData) {
+//   return axios.post("/post/images", formData, {
+//     withCredentials: true
+//   });
+// }
+// function* uploadImages(action) {
+//   try {
+//     const result = yield call(uploadImagesAPI, action.data);
+//     yield put({
+//       type: UPLOAD_IMAGES_SUCCESS,
+//       data: result.data
+//     });
+//   } catch (e) {
+//     yield put({
+//       type: UPLOAD_IMAGES_FAILURE,
+//       error: e
+//     });
+//   }
+// }
+// function* watchUploadImages() {
+//   yield takeLatest(UPLOAD_IMAGES_REQUEST, uploadImages);
+// }
 
 
-function postSaga() {
-  return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function postSaga$(_context13) {
+function uploadImagesAPI(formData) {
+  return axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('/post/images', formData, {
+    withCredentials: true
+  });
+}
+
+function uploadImages(action) {
+  var result;
+  return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function uploadImages$(_context13) {
     while (1) {
       switch (_context13.prev = _context13.next) {
         case 0:
-          _context13.next = 2;
-          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["all"])([Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["fork"])(watchAddPost), Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["fork"])(watchLoadMainPosts), Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["fork"])(watchAddComment), Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["fork"])(watchLoadComments), Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["fork"])(watchLoadHashtagPosts), Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["fork"])(watchLoadUserPosts)]);
+          _context13.prev = 0;
+          _context13.next = 3;
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["call"])(uploadImagesAPI, action.data);
 
-        case 2:
+        case 3:
+          result = _context13.sent;
+          _context13.next = 6;
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["put"])({
+            type: _reducers_post__WEBPACK_IMPORTED_MODULE_2__["UPLOAD_IMAGES_SUCCESS"],
+            data: result.data
+          });
+
+        case 6:
+          _context13.next = 13;
+          break;
+
+        case 8:
+          _context13.prev = 8;
+          _context13.t0 = _context13["catch"](0);
+          console.error(_context13.t0);
+          _context13.next = 13;
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["put"])({
+            type: _reducers_post__WEBPACK_IMPORTED_MODULE_2__["UPLOAD_IMAGES_FAILURE"],
+            error: _context13.t0
+          });
+
+        case 13:
         case "end":
           return _context13.stop();
       }
     }
-  }, _marked13);
+  }, _marked13, null, [[0, 8]]);
+}
+
+function watchUploadImages() {
+  return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function watchUploadImages$(_context14) {
+    while (1) {
+      switch (_context14.prev = _context14.next) {
+        case 0:
+          _context14.next = 2;
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["takeLatest"])(_reducers_post__WEBPACK_IMPORTED_MODULE_2__["UPLOAD_IMAGES_REQUEST"], uploadImages);
+
+        case 2:
+        case "end":
+          return _context14.stop();
+      }
+    }
+  }, _marked14);
+} ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+function postSaga() {
+  return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function postSaga$(_context15) {
+    while (1) {
+      switch (_context15.prev = _context15.next) {
+        case 0:
+          _context15.next = 2;
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["all"])([Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["fork"])(watchAddPost), Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["fork"])(watchLoadMainPosts), Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["fork"])(watchAddComment), Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["fork"])(watchLoadComments), Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["fork"])(watchLoadHashtagPosts), Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["fork"])(watchLoadUserPosts), Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["fork"])(watchUploadImages)]);
+
+        case 2:
+        case "end":
+          return _context15.stop();
+      }
+    }
+  }, _marked15);
 }
 
 /***/ }),

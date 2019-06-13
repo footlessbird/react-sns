@@ -104,6 +104,25 @@ export const REMOVE_POST_FAILURE = "REMOVE_POST_FAILURE";
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
+    case UPLOAD_IMAGES_REQUEST:
+      return {
+        ...state
+      };
+    case UPLOAD_IMAGES_SUCCESS:
+      return {
+        ...state,
+        imagePaths: [...state.imagePaths, action.data]
+      };
+    case UPLOAD_IMAGES_FAILURE:
+      return {
+        ...state
+      };
+
+    case REMOVE_IMAGE:
+      return {
+        ...state,
+        imagePaths: state.imagePaths.filter((v, i) => i !== action.index)
+      };
     case ADD_POST_REQUEST:
       return {
         ...state, // 리액트는 스테이트가 변경 다시 렌더링 ...state로 새로운 객체를 (다른 참조) 만들어줘서 다시 렌더링 될 수 있게 한다
