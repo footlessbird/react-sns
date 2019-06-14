@@ -93,6 +93,169 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
+/***/ "./components/ImagesZoom.js":
+/*!**********************************!*\
+  !*** ./components/ImagesZoom.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/slicedToArray */ "./node_modules/@babel/runtime-corejs2/helpers/esm/slicedToArray.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "prop-types");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_slick__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-slick */ "react-slick");
+/* harmony import */ var react_slick__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_slick__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! antd */ "antd");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+
+
+var ImagesZoom = function ImagesZoom(_ref) {
+  var images = _ref.images,
+      onClose = _ref.onClose;
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(0),
+      _useState2 = Object(_babel_runtime_corejs2_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
+      currentSlide = _useState2[0],
+      setCurrentSlide = _useState2[1];
+
+  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    style: {
+      position: "fixed",
+      zIndex: 9999,
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0
+    }
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("header", {
+    style: {
+      height: 44,
+      background: "white",
+      position: "relative",
+      padding: 0,
+      textAlign: "center"
+    }
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_4__["Icon"], {
+    type: "close",
+    onClick: onClose,
+    style: {
+      position: "absolute",
+      right: 0,
+      top: 0,
+      padding: 15,
+      lineHeight: "14px",
+      cursor: "pointer"
+    }
+  })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    style: {
+      height: "calc(100% - 44px)",
+      background: "#090909"
+    }
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_slick__WEBPACK_IMPORTED_MODULE_3___default.a, {
+    initialSlide: 0,
+    afterChange: function afterChange(slide) {
+      return setCurrentSlide(slide);
+    },
+    infinite: false,
+    arrows: true,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  }, images.map(function (v) {
+    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      style: {
+        padding: 32,
+        textAlign: "center"
+      }
+    }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+      src: "http://localhost:3306/".concat(v.src),
+      style: {
+        margin: "0 auto",
+        maxHeight: 750
+      }
+    }));
+  })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    style: {
+      textAlign: "center"
+    }
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    style: {
+      width: 75,
+      height: 30,
+      lineHeight: "30px",
+      borderRadius: 15,
+      background: "#313131",
+      display: "inline-block",
+      textAlign: "center",
+      color: "white",
+      fontSize: "15px"
+    }
+  }, currentSlide + 1, " / ", images.length)))));
+};
+
+ImagesZoom.propTypes = {
+  images: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.shape({
+    src: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string
+  })).isRequired,
+  onClose: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func.isRequired
+};
+/* harmony default export */ __webpack_exports__["default"] = (ImagesZoom); // import React, { useState} from 'react';
+// import PropTypes from 'prop-types';
+// import { Icon } from 'antd';
+// import Slick from 'react-slick';
+// const ImagesZoom = ({ images, onClose }) => {
+//   const [currentSlide, setCurrentSlide] = useState(0);
+//   return (
+//     <div style={{ position: 'fixed', zIndex: 5000, top: 0, left: 0, right: 0, bottom: 0 }}>
+//       <header style={{ height: 44, background: 'white', position: 'relative', padding: 0, textAlign: 'center'}}>
+//         <h1 style={{ margin: 0, fontSize: '17px', color: '#333', lineHeight: '44px' }}>상세 이미지</h1>
+//         <Icon type="close" onClick={onClose} style={{ position: 'absolute', right: 0, top: 0, padding: 15, lineHeight: '14px', cursor: 'pointer' }} />
+//       </header>
+//       <div style={{ height: 'calc(100% - 44px)', background: '#090909' }}>
+//         <div>
+//           <Slick
+//             initialSlide={0}
+//             afterChange={slide => setCurrentSlide(slide)}
+//             infinite={false}
+//             arrows
+//             slidesToShow={1}
+//             slidesToScroll={1}
+//           >
+//             {images.map((v) => {
+//               return (
+//                 <div style={{ padding: 32, textAlign: 'center' }}>
+//                   <img src={`http://localhost:3306/${v.src}`} style={{ margin: '0 auto', maxHeight: 750 }} />
+//                 </div>
+//               );
+//             })}
+//           </Slick>
+//           <div style={{ textAlign: 'center' }}>
+//             <div style={{ width: 75, height: 30, lineHeight: '30px', borderRadius: 15, background: '#313131', display: 'inline-block', textAlign: 'center', color: 'white', fontSize: '15px' }}>
+//               {currentSlide + 1} / {images.length}
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+// ImagesZoom.propTypes = {
+//   images: PropTypes.arrayOf(PropTypes.shape({
+//     src: PropTypes.string,
+//   })).isRequired,
+//   onClose: PropTypes.func.isRequired,
+// };
+// export default ImagesZoom;
+
+/***/ }),
+
 /***/ "./components/PostCard.js":
 /*!********************************!*\
   !*** ./components/PostCard.js ***!
@@ -114,6 +277,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "react-redux");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _reducers_post__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../reducers/post */ "./reducers/post.js");
+/* harmony import */ var _PostImages__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./PostImages */ "./components/PostImages.js");
+
 
 
 
@@ -181,10 +346,10 @@ var PostCard = function PostCard(_ref) {
     setCommentText(e.target.value);
   }, []);
   return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Card"], {
-    key: +post.createdAt,
-    cover: post.img && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
-      alt: "example",
-      src: post.img
+    key: +post.createdAt // cover={post.Images[0] && <img alt="example" src={`http://localhost:3306/`+post.Images[0].src} />}
+    ,
+    cover: post.Images[0] && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_PostImages__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      images: post.Images
     }),
     actions: [react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Icon"], {
       type: "retweet",
@@ -496,6 +661,175 @@ var PostForm = function PostForm() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (PostForm);
+
+/***/ }),
+
+/***/ "./components/PostImages.js":
+/*!**********************************!*\
+  !*** ./components/PostImages.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/slicedToArray */ "./node_modules/@babel/runtime-corejs2/helpers/esm/slicedToArray.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "prop-types");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! antd */ "antd");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _ImagesZoom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ImagesZoom */ "./components/ImagesZoom.js");
+
+// import React, { useState, useCallback } from "react";
+// import PropTypes from "prop-types";
+// import { Icon } from "antd";
+// import ImagesZoom from "./ImagesZoom";
+// const PostImages = ({ images }) => {
+//   const [showImagesZoom, setShowImagesZoom] = useState(false);
+//   const onZoom = useCallback(() => {
+//     setShowImagesZoom(true);
+//   }, []);
+//   const onClose = useCallback(
+//     () => {
+//     setShowImagesZoom(false)        
+//     },
+//     [],
+// )
+//   if (images.length === 1) {
+//     return (
+//       <div>
+//         <img src={`http://localhost:3306/${images[0].src}`} onClick={onZoom} />
+//         {showImagesZoom && <ImagesZoom images={images} onClose={onClose}/>}
+//       </div>
+//     );
+//   } else if (images.length === 2) {
+//     return (
+//       <div>
+//         <div>
+//           <img
+//             src={`http://localhost:3306/${images[0].src}`}
+//             width="50%"
+//             onClick={onZoom}
+//           />
+//           <img
+//             src={`http://localhost:3306/${images[1].src}`}
+//             width="50%"
+//             onClick={onZoom}
+//           />
+//           {showImagesZoom && <ImagesZoom images={images} onClose={onClose}/>}
+//         </div>
+//       </div>
+//     );
+//   } else {
+//     return (
+//       <div>
+//         <div>
+//           <img
+//             src={`http://localhost:3306/${images[0].src}`}
+//             width="50%"
+//             onClick={onZoom}
+//           />
+//           <div
+//             style={{
+//               display: "inline-block",
+//               width: "50%",
+//               textAlign: "center",
+//               verticalAlign: "middle"
+//             }}
+//             onClick={onZoom}
+//           >
+//             <Icon type="plus" />
+//             <br />
+//             {images.length - 1}
+//             more images load
+//           </div>
+//         </div>
+//         {showImagesZoom && <ImagesZoom images={images} onClose={onClose}/>}
+//       </div>
+//     );
+//   }
+// };
+// PostImages.propTypes = {
+//   images: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       src: PropTypes.string
+//     })
+//   ).isRequired
+// };
+// export default PostImages;
+
+
+
+
+
+var PostImages = function PostImages(_ref) {
+  var images = _ref.images;
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(false),
+      _useState2 = Object(_babel_runtime_corejs2_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
+      showImagesZoom = _useState2[0],
+      setShowImagesZoom = _useState2[1];
+
+  var onZoom = Object(react__WEBPACK_IMPORTED_MODULE_1__["useCallback"])(function () {
+    setShowImagesZoom(true);
+  }, []);
+  var onClose = Object(react__WEBPACK_IMPORTED_MODULE_1__["useCallback"])(function () {
+    setShowImagesZoom(false);
+  }, []);
+
+  if (images.length === 1) {
+    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+      src: "http://localhost:3306/".concat(images[0].src),
+      onClick: onZoom
+    }), showImagesZoom && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_ImagesZoom__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      images: images,
+      onClose: onClose
+    }));
+  }
+
+  if (images.length === 2) {
+    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+      src: "http://localhost:3306/".concat(images[0].src),
+      width: "50%",
+      onClick: onZoom
+    }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+      src: "http://localhost:3306/".concat(images[1].src),
+      width: "50%",
+      onClick: onZoom
+    })), showImagesZoom && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_ImagesZoom__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      images: images,
+      onClose: onClose
+    }));
+  }
+
+  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+    src: "http://localhost:3306/".concat(images[0].src),
+    width: "50%",
+    onClick: onZoom
+  }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    style: {
+      display: 'inline-block',
+      width: '50%',
+      textAlign: 'center',
+      verticalAlign: 'middle'
+    },
+    onClick: onZoom
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Icon"], {
+    type: "plus"
+  }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null), images.length - 1, "more images load")), showImagesZoom && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_ImagesZoom__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    images: images,
+    onClose: onClose
+  }));
+};
+
+PostImages.propTypes = {
+  images: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.shape({
+    src: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string
+  })).isRequired
+};
+/* harmony default export */ __webpack_exports__["default"] = (PostImages);
 
 /***/ }),
 
@@ -1628,7 +1962,8 @@ var reducer = function reducer() {
       return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
         isAddingPost: false,
         mainPosts: [action.data].concat(Object(_babel_runtime_corejs2_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(state.mainPosts)),
-        postAdded: true
+        postAdded: true,
+        imagePaths: []
       });
 
     case ADD_POST_FAILURE:
@@ -1959,6 +2294,17 @@ module.exports = require("react");
 /***/ (function(module, exports) {
 
 module.exports = require("react-redux");
+
+/***/ }),
+
+/***/ "react-slick":
+/*!******************************!*\
+  !*** external "react-slick" ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("react-slick");
 
 /***/ }),
 

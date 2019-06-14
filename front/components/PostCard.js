@@ -4,6 +4,7 @@ import Link from "next/link";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { ADD_COMMENT_REQUEST, LOAD_COMMENTS_REQUEST } from "../reducers/post";
+import PostImages from './PostImages'
 
 const PostCard = ({ post }) => {
   const [commentFormOpened, setCommentFormOpened] = useState(false);
@@ -14,11 +15,11 @@ const PostCard = ({ post }) => {
 
   const onToggleComment = useCallback(() => {
     setCommentFormOpened(prev => !prev);
-    if(!commentFormOpened){
+    if (!commentFormOpened) {
       dispatch({
         type: LOAD_COMMENTS_REQUEST,
-        data: post.id,
-      })
+        data: post.id
+      });
     }
   }, []);
 
@@ -32,7 +33,7 @@ const PostCard = ({ post }) => {
         type: ADD_COMMENT_REQUEST,
         data: {
           postId: post.id,
-          content: commentText,
+          content: commentText
         }
       });
     },
@@ -51,7 +52,8 @@ const PostCard = ({ post }) => {
     <div>
       <Card
         key={+post.createdAt}
-        cover={post.img && <img alt="example" src={post.img} />}
+        // cover={post.Images[0] && <img alt="example" src={`http://localhost:3306/`+post.Images[0].src} />}
+        cover={post.Images[0] && <PostImages images={post.Images} />}
         actions={[
           <Icon type="retweet" key="retweet" />,
           <Icon type="heart" key="heart" />,

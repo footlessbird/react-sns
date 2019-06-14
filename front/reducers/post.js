@@ -135,7 +135,8 @@ const reducer = (state = initState, action) => {
         ...state,
         isAddingPost: false,
         mainPosts: [action.data, ...state.mainPosts],
-        postAdded: true
+        postAdded: true,
+        imagePaths:[],
       };
     case ADD_POST_FAILURE:
       return {

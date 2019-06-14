@@ -398,13 +398,10 @@ var UserProfile = function UserProfile() {
     });
   }, []);
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Card"], {
-    actions: [react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      key: "twit"
-    }, "Tweet", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), me.Posts.length), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      key: "following"
-    }, "Following", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), me.Followings.length), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      key: "follower"
-    }, "Followers", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), me.Followers.length)]
+    actions: [// <div key="twit">Tweet<br />{me.Posts.length}</div>,
+      // <div key="following">Following<br />{me.Followings.length}</div>,
+      // <div key="follower">Followers<br />{me.Followers.length}</div>,
+    ]
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Card"].Meta, {
     avatar: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Avatar"], null, me.nickname[0]),
     title: me.nickname
@@ -2082,7 +2079,8 @@ var reducer = function reducer() {
       return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
         isAddingPost: false,
         mainPosts: [action.data].concat(Object(_babel_runtime_corejs2_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(state.mainPosts)),
-        postAdded: true
+        postAdded: true,
+        imagePaths: []
       });
 
     case ADD_POST_FAILURE:
