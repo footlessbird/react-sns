@@ -31,8 +31,10 @@ import {
   RETWEET_FAILURE,
   RETWEET_REQUEST
 } from "../reducers/post";
+
+import {ADD_POST_TO_ME} from '../reducers/user'
+
 import axios from "axios";
-import { UNFOLLOW_USER_FAILURE } from "../reducers/user";
 
 function addPostAPI(postData) {
   return axios.post("/post", postData, {
@@ -47,6 +49,10 @@ function* addPost(action) {
       type: ADD_POST_SUCCESS,
       data: result.data
     });
+    yield put({
+      type: ADD_POST_TO_ME,
+      data: result.data.id
+    })
   } catch (e) {
     yield put({
       type: ADD_POST_FAILURE,
@@ -58,38 +64,6 @@ function* addPost(action) {
 function* watchAddPost() {
   yield takeLatest(ADD_POST_REQUEST, addPost);
 }
-/*
-function addCommentAPI(data) {
-  return axios.post(
-    `/post/${data.postId}/comment`,{ content: data.content },
-    {
-      withCredentials: true
-    }
-  );
-}
-
-function* addComment(action) {
-  try {
-    const result = yield call(addCommentAPI, action.data);
-    yield put({
-      type: ADD_COMMENT_SUCCESS,
-      data: {
-        postId: action.data.postId,
-        comment: result.data
-      }
-    });
-  } catch (e) {
-    yield put({
-      type: ADD_COMMENT_FAILURE,
-      error: e
-    });
-  }
-}
-
-function* watchAddComment() {
-  yield takeLatest(ADD_COMMENT_REQUEST, addComment);
-}
-*/
 
 function addCommentAPI(data) {
   return axios.post(
@@ -273,33 +247,7 @@ function* watchUploadImages() {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-function likePostAPI(postId) {
-  return axios.post(`post/${postId}/like`, {}, {
-    withCredentials: true,
-  });
-}
 
-function* likePost(action) {
-  try {
-    const result = yield call(likePostAPI, action.data);
-    yield put({
-      type: LIKE_POST_SUCCESS,
-      data: result.data.userId,
-    });
-  } catch (e) {
-    console.error(e);
-    yield put({
-      type: LIKE_POST_FAILURE,
-      error: e,
-    });
-  }
-}
-
-function* watchLikePost() {
-  yield takeLatest(LIKE_POST_REQUEST, likePost);
-}
-*/
 function likePostAPI(postId) {
   return axios.post(
     `/post/${postId}/like`,
@@ -334,33 +282,7 @@ function* watchLikePost() {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-function unlikePostAPI(postId) {
-  return axios.delete(`post/${postId}/like`, {
-    withCredentials: true,
-  });
-}
 
-function* unlikePost(action) {
-  try {
-    const result = yield call(unlikePostAPI, action.data);
-    yield put({
-      type: UNLIKE_POST_SUCCESS,
-      data: result.data.userId,
-    });
-  } catch (e) {
-    console.error(e);
-    yield put({
-      type: UNLIKE_POST_FAILURE,
-      error: e,
-    });
-  }
-}
-
-function* watchUnlikePost() {
-  yield takeLatest(UNLIKE_POST_REQUEST, unlikePost);
-}
-*/
 function unlikePostAPI(postId) {
   return axios.delete(`/post/${postId}/like`, {
     withCredentials: true

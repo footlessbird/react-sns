@@ -1,12 +1,3 @@
-const dummyUser = {
-  nickname: "Asa Akira",
-  Post: [],
-  Followings: [],
-  Followers: [],
-  signUpData: {},
-  id: 1
-};
-
 export const initState = {
   // isLoggedIn: false, // 로그인 여부
   isLoggingOut: false, // 로그아웃 시도중
@@ -146,6 +137,8 @@ const reducer = (state = initState, action) => {
         isSigningUp: false,
         signUpError: action.error
       };
+    //
+    /*
     case LOAD_USER_REQUEST:
       return {
         ...state
@@ -165,6 +158,30 @@ const reducer = (state = initState, action) => {
       return {
         ...state
       };
+      */
+    //
+    case LOAD_USER_REQUEST: {
+      return {
+        ...state
+      };
+    }
+    case LOAD_USER_SUCCESS: {
+      if (action.me) {
+        return {
+          ...state,
+          me: action.data
+        };
+      }
+      return {
+        ...state,
+        userInfo: action.data
+      };
+    }
+    case LOAD_USER_FAILURE: {
+      return {
+        ...state
+      };
+    }
 
     case FOLLOW_USER_REQUEST: {
       return {
@@ -205,6 +222,15 @@ const reducer = (state = initState, action) => {
         ...state
       };
     }
+    case ADD_POST_TO_ME: {
+      return {
+        ...state,
+        me: {
+          ...state.me,
+          Posts: [{ id: action.data }, ...state.me.Posts],
+        },
+      };
+    }
 
     default:
       return state;
@@ -212,3 +238,17 @@ const reducer = (state = initState, action) => {
 };
 
 export default reducer;
+
+
+
+
+
+
+
+
+
+
+
+
+
+

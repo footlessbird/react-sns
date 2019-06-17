@@ -1956,18 +1956,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var initState = {
-  mainPosts: [// {
-    //   id: 1,
-    //   User: {
-    //     id: 1,
-    //     nickname: "arcadeKid"
-    //   },
-    //   content: "A very first post",
-    //   img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Asa_Akira_2_2014.jpg/440px-Asa_Akira_2_2014.jpg",
-    //   Comments: []
-    // }
-  ],
-  // 화면에 보여질 포스트들
+  mainPosts: [],
   imagePaths: [],
   // 미리보기 이미지 경로
   addPostError: "",
@@ -1979,26 +1968,7 @@ var initState = {
   isAddingComment: false,
   addCommentError: "",
   commentAdded: false
-}; // const dummyPost = {
-//   id: 2,
-//   User: {
-//     id: 1,
-//     nickname: "arcadeKid"
-//   },
-//   content:
-//     "타노스가 전 우주의 모든 생명체 절반을 제거하기 위해 인피니티 건틀렛을 사용한 지 3주가 흐른 후, 캐럴 댄버스는 깊은 우주에서 토니 스타크와 네뷸라를 구하고 지구로 데려온다. 이들은 브루스 배너, 스티브 로저스, 토르, 로켓, 나타샤 로마노프, 제임스 로즈 등 남아있는 어벤져스 멤버들과 만나고 타노스를 찾고 기습하기 위해 지식을 이용한다. 이들은 인피니티 스톤의 효과를 되돌리기 위해 인피니티 스톤을 되찾고 사용하는 계획을 세우지만, 타노스는 인피니티 젬을 사용하는 걸 막기 위해 이미 파괴한 이후였다. 화가 난 토르는 타노스의 목을 베어버린다.",
-//   Comments: []
-// };
-// const dummyComment = {
-//   id: 1,
-//   User: {
-//     id: 1,
-//     nickname: "Vancouver"
-//   },
-//   createdAt: new Date(),
-//   content: "Say my name 🔱"
-// };
-
+};
 var LOAD_MAIN_POSTS_REQUEST = "LOAD_MAIN_POSTS_REQUEST";
 var LOAD_MAIN_POSTS_SUCCESS = "LOAD_MAIN_POSTS_SUCCESS";
 var LOAD_MAIN_POSTS_FAILURE = "LOAD_MAIN_POSTS_FAILURE";
@@ -2032,19 +2002,7 @@ var RETWEET_SUCCESS = "RETWEET_SUCCESS";
 var RETWEET_FAILURE = "RETWEET_FAILURE";
 var REMOVE_POST_REQUEST = "REMOVE_POST_REQUEST";
 var REMOVE_POST_SUCCESS = "REMOVE_POST_SUCCESS";
-var REMOVE_POST_FAILURE = "REMOVE_POST_FAILURE"; // const addPost = {
-//   type: ADD_POST
-// };
-// const addDummy = {
-//   type: ADD_DUMMY,
-//   data: {
-//     content: "I love you 3000",
-//     UserId: 1,
-//     User: {
-//       nickname: "arcadeKid"
-//     }
-//   }
-// };
+var REMOVE_POST_FAILURE = "REMOVE_POST_FAILURE";
 
 var reducer = function reducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initState;
@@ -2150,27 +2108,32 @@ var reducer = function reducer() {
       });
 
     case ADD_POST_REQUEST:
-      return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
-        // 리액트는 스테이트가 변경 다시 렌더링 ...state로 새로운 객체를 (다른 참조) 만들어줘서 다시 렌더링 될 수 있게 한다
-        isAddingPost: true,
-        addPostError: "",
-        postAdded: false
-      });
+      {
+        return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
+          // 리액트는 스테이트가 변경 다시 렌더링 ...state로 새로운 객체를 (다른 참조) 만들어줘서 다시 렌더링 될 수 있게 한다
+          isAddingPost: true,
+          addPostError: "",
+          postAdded: false
+        });
+      }
 
     case ADD_POST_SUCCESS:
-      return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
-        isAddingPost: false,
-        mainPosts: [action.data].concat(Object(_babel_runtime_corejs2_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(state.mainPosts)),
-        postAdded: true,
-        imagePaths: []
-      });
+      {
+        return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
+          isAddingPost: false,
+          mainPosts: [action.data].concat(Object(_babel_runtime_corejs2_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(state.mainPosts)),
+          postAdded: true,
+          imagePaths: []
+        });
+      }
 
     case ADD_POST_FAILURE:
-      return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
-        isAddingPost: false,
-        addPostError: action.error,
-        postAdded: false
-      });
+      {
+        return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
+          isAddingPost: false,
+          addPostError: action.error
+        });
+      }
 
     case ADD_COMMENT_REQUEST:
       return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
@@ -2292,14 +2255,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/objectSpread */ "./node_modules/@babel/runtime-corejs2/helpers/esm/objectSpread.js");
 
 
-var dummyUser = {
-  nickname: "Asa Akira",
-  Post: [],
-  Followings: [],
-  Followers: [],
-  signUpData: {},
-  id: 1
-};
 var initState = {
   // isLoggedIn: false, // 로그인 여부
   isLoggingOut: false,
@@ -2440,23 +2395,53 @@ var reducer = function reducer() {
         isSigningUp: false,
         signUpError: action.error
       });
+    //
 
+    /*
     case LOAD_USER_REQUEST:
-      return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state);
-
+      return {
+        ...state
+      };
     case LOAD_USER_SUCCESS:
       if (action.me) {
-        return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
+        return {
+          ...state,
           me: action.data
+        };
+      }
+      return {
+        ...state,
+        userInfo: action.data
+      };
+    case LOAD_USER_FAILURE:
+      return {
+        ...state
+      };
+      */
+    //
+
+    case LOAD_USER_REQUEST:
+      {
+        return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state);
+      }
+
+    case LOAD_USER_SUCCESS:
+      {
+        if (action.me) {
+          return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
+            me: action.data
+          });
+        }
+
+        return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
+          userInfo: action.data
         });
       }
 
-      return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
-        userInfo: action.data
-      });
-
     case LOAD_USER_FAILURE:
-      return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state);
+      {
+        return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state);
+      }
 
     case FOLLOW_USER_REQUEST:
       {
@@ -2501,6 +2486,17 @@ var reducer = function reducer() {
     case UNFOLLOW_USER_FAILURE:
       {
         return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state);
+      }
+
+    case ADD_POST_TO_ME:
+      {
+        return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
+          me: Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state.me, {
+            Posts: [{
+              id: action.data
+            }].concat(Object(_babel_runtime_corejs2_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(state.me.Posts))
+          })
+        });
       }
 
     default:
