@@ -11,7 +11,7 @@ import rootSaga from "../sagas";
 // import createSagaMiddleware from "@redux-saga/core";
 
 const Dear = ({ Component, store, pageProps }) => {
-  console.log(pageProps)
+  console.log(pageProps);
   return (
     <Provider store={store}>
       <Head>
@@ -21,6 +21,17 @@ const Dear = ({ Component, store, pageProps }) => {
           href="https://cdnjs.cloudflare.com/ajax/libs/antd/3.18.1/antd.css"
         />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/antd/3.18.1/antd.js" />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          charset="UTF-8"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+        />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+        />
       </Head>
       <Layout>
         <Component {...pageProps} />
@@ -32,10 +43,10 @@ const Dear = ({ Component, store, pageProps }) => {
 Dear.propTypes = {
   Component: PropTypes.elementType.isRequired,
   store: PropTypes.object.isRequired,
-  pageProps: PropTypes.object.isRequired,
+  pageProps: PropTypes.object.isRequired
 };
 // next가 실행해줌
-Dear.getInitialProps = async (context) => {
+Dear.getInitialProps = async context => {
   console.log(context);
   const { ctx, Component } = context;
   let pageProps = {};

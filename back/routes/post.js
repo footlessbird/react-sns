@@ -25,7 +25,7 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => { // POST 
   try {
     const hashtags = req.body.content.match(/#[^\s]+/g);
     const newPost = await db.Post.create({
-      content: req.body.content, // ex) '제로초 파이팅 #구독 #좋아요 눌러주세요'
+      content: req.body.content, 
       UserId: req.user.id,
     });
     if (hashtags) {
@@ -168,7 +168,7 @@ router.post('/:id/retweet', isLoggedIn, async (req, res, next) => {
     if (req.user.id === post.UserId || (post.Retweet && post.Retweet.UserId === req.user.id)) {
       return res.status(403).send('자신의 글은 리트윗할 수 없습니다.');
     }
-    const retweetTargetId = post.RetweetId || post.id;
+    const retweetTargetId = post.RetweetId || post.id;  // 원본 게시글을 리트윗 할 때 / 리트윗된 게시글을 다시 리트윗 할 때
     const exPost = await db.Post.findOne({
       where: {
         UserId: req.user.id,

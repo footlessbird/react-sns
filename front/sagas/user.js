@@ -1,5 +1,5 @@
-import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
-import axios from 'axios';
+import axios from "axios";
+import { all, call, fork, put, takeEvery } from "redux-saga/effects";
 import {
   LOAD_USER_FAILURE,
   LOAD_USER_REQUEST,
@@ -13,26 +13,34 @@ import {
   SIGN_UP_FAILURE,
   SIGN_UP_REQUEST,
   SIGN_UP_SUCCESS,
-} from '../reducers/user';
+  FOLLOW_USER_SUCCESS,
+  FOLLOW_USER_FAILURE,
+  FOLLOW_USER_REQUEST,
+  UNFOLLOW_USER_SUCCESS,
+  UNFOLLOW_USER_FAILURE,
+  UNFOLLOW_USER_REQUEST
+} from "../reducers/user";
 
 function loginAPI(loginData) {
   // 서버에 요청을 보내는 부분
-  return axios.post('/user/login', loginData, {
-    withCredentials: true,
+  return axios.post("/user/login", loginData, {
+    withCredentials: true
   });
 }
 
 function* login(action) {
   try {
     const result = yield call(loginAPI, action.data);
-    yield put({ // put은 dispatch 동일
+    yield put({
+      // put은 dispatch 동일
       type: LOG_IN_SUCCESS,
-      data: result.data,
+      data: result.data
     });
-  } catch (e) { // loginAPI 실패
+  } catch (e) {
+    // loginAPI 실패
     console.error(e);
     yield put({
-      type: LOG_IN_FAILURE,
+      type: LOG_IN_FAILURE
     });
   }
 }
@@ -43,21 +51,23 @@ function* watchLogin() {
 
 function signupAPI(signupData) {
   // 서버에 요청을 보내는 부분
-  return axios.post('/user/', signupData);
+  return axios.post("/user/", signupData);
 }
 
 function* signup(action) {
   try {
     // yield call(signupAPI);
     yield call(signupAPI, action.data);
-    yield put({ // put은 dispatch 동일
-      type: SIGN_UP_SUCCESS,
+    yield put({
+      // put은 dispatch 동일
+      type: SIGN_UP_SUCCESS
     });
-  } catch (e) { // loginAPI 실패
+  } catch (e) {
+    // loginAPI 실패
     console.error(e);
     yield put({
       type: SIGN_UP_FAILURE,
-      error: e,
+      error: e
     });
   }
 }
@@ -68,23 +78,29 @@ function* watchSignup() {
 
 function logoutAPI() {
   // 서버에 요청을 보내는 부분
-  return axios.post('/user/logout', {}, {
-    withCredentials: true,
-  });
+  return axios.post(
+    "/user/logout",
+    {},
+    {
+      withCredentials: true
+    }
+  );
 }
 
 function* logout() {
   try {
     // yield call(logoutAPI);
     yield call(logoutAPI);
-    yield put({ // put은 dispatch 동일
-      type: LOG_OUT_SUCCESS,
+    yield put({
+      // put은 dispatch 동일
+      type: LOG_OUT_SUCCESS
     });
-  } catch (e) { // loginAPI 실패
+  } catch (e) {
+    // loginAPI 실패
     console.error(e);
     yield put({
       type: LOG_OUT_FAILURE,
-      error: e,
+      error: e
     });
   }
 }
@@ -95,8 +111,8 @@ function* watchLogout() {
 
 function loadUserAPI(userId) {
   // 서버에 요청을 보내는 부분
-  return axios.get(userId ? `/user/${userId}` : '/user/', {
-    withCredentials: true,
+  return axios.get(userId ? `/user/${userId}` : "/user/", {
+    withCredentials: true
   });
 }
 
@@ -104,16 +120,18 @@ function* loadUser(action) {
   try {
     // yield call(loadUserAPI);
     const result = yield call(loadUserAPI, action.data);
-    yield put({ // put은 dispatch 동일
+    yield put({
+      // put은 dispatch 동일
       type: LOAD_USER_SUCCESS,
       data: result.data,
       me: !action.data
     });
-  } catch (e) { // loginAPI 실패
+  } catch (e) {
+    // loginAPI 실패
     console.error(e);
     yield put({
       type: LOAD_USER_FAILURE,
-      error: e,
+      error: e
     });
   }
 }
@@ -122,11 +140,137 @@ function* watchLoadUser() {
   yield takeEvery(LOAD_USER_REQUEST, loadUser);
 }
 
+/*
+function followAPI(userId) {
+  // 서버에 요청을 보내는 부분
+  return axios.post(
+    `/user/${userId}/follow`,
+    {},
+    {
+      withCredentials: true
+    }
+  );
+}
+
+function* follow(action) {
+  try {
+    // yield call(followAPI);
+    const result = yield call(followAPI, action.data);
+    yield put({
+      // put은 dispatch 동일
+      type: FOLLOW_USER_SUCCESS,
+      data: result.data
+    });
+  } catch (e) {
+    // loginAPI 실패
+    console.error(e);
+    yield put({
+      type: FOLLOW_USER_FAILURE,
+      error: e
+    });
+  }
+}
+
+function* watchFollow() {
+  yield takeEvery(FOLLOW_USER_REQUEST, follow);
+}
+
+
+function unfollowAPI(userId) {
+  // 서버에 요청을 보내는 부분
+  return axios.delete(`/user/${userId}/follow`, {
+    withCredentials: true,
+  });
+}
+
+function* unfollow(action) {
+  try {
+    // yield call(unfollowAPI);
+    const result = yield call(unfollowAPI, action.data);
+    yield put({ // put은 dispatch 동일
+      type: UNFOLLOW_USER_SUCCESS,
+      data: result.data,
+    });
+  } catch (e) { // loginAPI 실패
+    console.error(e);
+    yield put({
+      type: UNFOLLOW_USER_FAILURE,
+      error: e,
+    });
+  }
+}
+
+function* watchUnfollow() {
+  yield takeEvery(UNFOLLOW_USER_REQUEST, unfollow);
+}
+*/
+
+function followAPI(userId) {
+  // 서버에 요청을 보내는 부분
+  return axios.post(`/user/${userId}/follow`, {}, {
+    withCredentials: true,
+  });
+}
+
+function* follow(action) {
+  try {
+    // yield call(followAPI);
+    const result = yield call(followAPI, action.data);
+    yield put({ // put은 dispatch 동일
+      type: FOLLOW_USER_SUCCESS,
+      data: result.data,
+    });
+  } catch (e) { // loginAPI 실패
+    console.error(e);
+    yield put({
+      type: FOLLOW_USER_FAILURE,
+      error: e,
+    });
+  }
+}
+
+function* watchFollow() {
+  yield takeEvery(FOLLOW_USER_REQUEST, follow);
+}
+
+function unfollowAPI(userId) {
+  // 서버에 요청을 보내는 부분
+  return axios.delete(`/user/${userId}/follow`, {
+    withCredentials: true,
+  });
+}
+
+function* unfollow(action) {
+  try {
+    // yield call(unfollowAPI);
+    const result = yield call(unfollowAPI, action.data);
+    yield put({ // put은 dispatch 동일
+      type: UNFOLLOW_USER_SUCCESS,
+      data: result.data,
+    });
+  } catch (e) { // loginAPI 실패
+    console.error(e);
+    yield put({
+      type: UNFOLLOW_USER_FAILURE,
+      error: e,
+    });
+  }
+}
+
+function* watchUnfollow() {
+  yield takeEvery(UNFOLLOW_USER_REQUEST, unfollow);
+}
+
+
+
+
 export default function* userSaga() {
   yield all([
     fork(watchLogin),
     fork(watchLogout),
     fork(watchLoadUser),
     fork(watchSignup),
+    fork(watchFollow),
+    fork(watchUnfollow)
   ]);
 }

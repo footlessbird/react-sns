@@ -18,11 +18,21 @@ import {
   LOAD_COMMENTS_REQUEST,
   LOAD_COMMENTS_SUCCESS,
   LOAD_COMMENTS_FAILURE,
+  UPLOAD_IMAGES_REQUEST,
   UPLOAD_IMAGES_SUCCESS,
   UPLOAD_IMAGES_FAILURE,
-  UPLOAD_IMAGES_REQUEST
+  LIKE_POST_REQUEST,
+  LIKE_POST_SUCCESS,
+  LIKE_POST_FAILURE,
+  UNLIKE_POST_SUCCESS,
+  UNLIKE_POST_REQUEST,
+  UNLIKE_POST_FAILURE,
+  RETWEET_SUCCESS,
+  RETWEET_FAILURE,
+  RETWEET_REQUEST
 } from "../reducers/post";
 import axios from "axios";
+import { UNFOLLOW_USER_FAILURE } from "../reducers/user";
 
 function addPostAPI(postData) {
   return axios.post("/post", postData, {
@@ -236,10 +246,9 @@ function* watchLoadUserPosts() {
 //   yield takeLatest(UPLOAD_IMAGES_REQUEST, uploadImages);
 // }
 
-
 function uploadImagesAPI(formData) {
-  return axios.post('/post/images', formData, {
-    withCredentials: true,
+  return axios.post("/post/images", formData, {
+    withCredentials: true
   });
 }
 
@@ -248,13 +257,13 @@ function* uploadImages(action) {
     const result = yield call(uploadImagesAPI, action.data);
     yield put({
       type: UPLOAD_IMAGES_SUCCESS,
-      data: result.data,
+      data: result.data
     });
   } catch (e) {
     console.error(e);
     yield put({
       type: UPLOAD_IMAGES_FAILURE,
-      error: e,
+      error: e
     });
   }
 }
@@ -264,6 +273,155 @@ function* watchUploadImages() {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+function likePostAPI(postId) {
+  return axios.post(`post/${postId}/like`, {}, {
+    withCredentials: true,
+  });
+}
+
+function* likePost(action) {
+  try {
+    const result = yield call(likePostAPI, action.data);
+    yield put({
+      type: LIKE_POST_SUCCESS,
+      data: result.data.userId,
+    });
+  } catch (e) {
+    console.error(e);
+    yield put({
+      type: LIKE_POST_FAILURE,
+      error: e,
+    });
+  }
+}
+
+function* watchLikePost() {
+  yield takeLatest(LIKE_POST_REQUEST, likePost);
+}
+*/
+function likePostAPI(postId) {
+  return axios.post(
+    `/post/${postId}/like`,
+    {},
+    {
+      withCredentials: true
+    }
+  );
+}
+
+function* likePost(action) {
+  try {
+    const result = yield call(likePostAPI, action.data);
+    yield put({
+      type: LIKE_POST_SUCCESS,
+      data: {
+        postId: action.data,
+        userId: result.data.userId
+      }
+    });
+  } catch (e) {
+    console.error(e);
+    yield put({
+      type: LIKE_POST_FAILURE,
+      error: e
+    });
+  }
+}
+
+function* watchLikePost() {
+  yield takeLatest(LIKE_POST_REQUEST, likePost);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+function unlikePostAPI(postId) {
+  return axios.delete(`post/${postId}/like`, {
+    withCredentials: true,
+  });
+}
+
+function* unlikePost(action) {
+  try {
+    const result = yield call(unlikePostAPI, action.data);
+    yield put({
+      type: UNLIKE_POST_SUCCESS,
+      data: result.data.userId,
+    });
+  } catch (e) {
+    console.error(e);
+    yield put({
+      type: UNLIKE_POST_FAILURE,
+      error: e,
+    });
+  }
+}
+
+function* watchUnlikePost() {
+  yield takeLatest(UNLIKE_POST_REQUEST, unlikePost);
+}
+*/
+function unlikePostAPI(postId) {
+  return axios.delete(`/post/${postId}/like`, {
+    withCredentials: true
+  });
+}
+
+function* unlikePost(action) {
+  try {
+    const result = yield call(unlikePostAPI, action.data);
+    yield put({
+      type: UNLIKE_POST_SUCCESS,
+      data: {
+        postId: action.data,
+        userId: result.data.userId
+      }
+    });
+  } catch (e) {
+    console.error(e);
+    yield put({
+      type: UNLIKE_POST_FAILURE,
+      error: e
+    });
+  }
+}
+
+function* watchUnlikePost() {
+  yield takeLatest(UNLIKE_POST_REQUEST, unlikePost);
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function retweetAPI(postId) {
+  return axios.post(
+    `/post/${postId}/retweet`,
+    {},
+    {
+      withCredentials: true
+    }
+  );
+}
+
+function* retweet(action) {
+  try {
+    const result = yield call(retweetAPI, action.data);
+    yield put({
+      type: RETWEET_SUCCESS,
+      data: result.data
+    });
+  } catch (e) {
+    console.error(e);
+    yield put({
+      type: RETWEET_FAILURE,
+      error: e
+    });
+    alert(e.response && e.response.data);
+  }
+}
+
+function* watchRetweet() {
+  yield takeLatest(RETWEET_REQUEST, retweet);
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 export default function* postSaga() {
   yield all([
     fork(watchAddPost),
@@ -272,6 +430,9 @@ export default function* postSaga() {
     fork(watchLoadComments),
     fork(watchLoadHashtagPosts),
     fork(watchLoadUserPosts),
-    fork(watchUploadImages)
+    fork(watchUploadImages),
+    fork(watchLikePost),
+    fork(watchUnlikePost),
+    fork(watchRetweet)
   ]);
 }
