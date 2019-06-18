@@ -10,7 +10,10 @@ export const initState = {
   me: null,
   followingList: [], // 팔로잉 리스트
   followerList: [], // 팔로워 리스트
-  userInfo: null // 남의 정보
+  userInfo: null, // 남의 정보
+  isEditingNickname: false, // 이름 변경 중
+  editNicknameError: '', // 이름 변경 실패 사유
+
 };
 
 // 액션 타입
@@ -48,15 +51,17 @@ export const REMOVE_FOLLOWER_FAILURE = "REMOVE_FOLLOWER_FAILURE";
 
 export const ADD_POST_TO_ME = "ADD_POST_TO_ME";
 
-export const LOAD_FOLLOWERS_REQUEST = 'LOAD_FOLLOWERS_REQUEST';
-export const LOAD_FOLLOWERS_SUCCESS = 'LOAD_FOLLOWERS_SUCCESS';
-export const LOAD_FOLLOWERS_FAILURE = 'LOAD_FOLLOWERS_FAILURE';
+export const LOAD_FOLLOWERS_REQUEST = "LOAD_FOLLOWERS_REQUEST";
+export const LOAD_FOLLOWERS_SUCCESS = "LOAD_FOLLOWERS_SUCCESS";
+export const LOAD_FOLLOWERS_FAILURE = "LOAD_FOLLOWERS_FAILURE";
 
-export const LOAD_FOLLOWINGS_REQUEST = 'LOAD_FOLLOWINGS_REQUEST';
-export const LOAD_FOLLOWINGS_SUCCESS = 'LOAD_FOLLOWINGS_SUCCESS';
-export const LOAD_FOLLOWINGS_FAILURE = 'LOAD_FOLLOWINGS_FAILURE';
+export const LOAD_FOLLOWINGS_REQUEST = "LOAD_FOLLOWINGS_REQUEST";
+export const LOAD_FOLLOWINGS_SUCCESS = "LOAD_FOLLOWINGS_SUCCESS";
+export const LOAD_FOLLOWINGS_FAILURE = "LOAD_FOLLOWINGS_FAILURE";
 
-
+export const EDIT_NICKNAME_REQUEST = "EDIT_NICKNAME_REQUEST";
+export const EDIT_NICKNAME_SUCCESS = "EDIT_NICKNAME_SUCCESS";
+export const EDIT_NICKNAME_FAILURE = "EDIT_NICKNAME_FAILURE";
 
 //  동기요청의 경우 비동기 처럼 request -> success or failure 와 같이 기다리는 것 없이 바로 실행되는 것이라서
 //  redux-saga가 필요 없다
@@ -294,6 +299,31 @@ const reducer = (state = initState, action) => {
         ...state
       };
     }
+    case EDIT_NICKNAME_REQUEST: {
+      return {
+        ...state,
+        isEditingNickname: true,
+        editNicknameErrorReason: ""
+      };
+    }
+    case EDIT_NICKNAME_SUCCESS: {
+      return {
+        ...state,
+        isEditingNickname: false,
+        me: {
+          ...state.me,
+          nickname: action.data
+        }
+      };
+    }
+    case EDIT_NICKNAME_FAILURE: {
+      return {
+        ...state,
+        isEditingNickname: false,
+        editNicknameErrorReason: action.error
+      };
+    }
+
     default:
       return state;
   }

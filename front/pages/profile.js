@@ -1,8 +1,7 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { Button, List, Card, Icon } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-
-// import NicknameEditForm from '../components/NicknameEditForm';
+import NicknameEditForm from '../components/NicknameEditForm';
 import {
   LOAD_FOLLOWERS_REQUEST,
   LOAD_FOLLOWINGS_REQUEST,
@@ -50,7 +49,7 @@ const Profile = () => {
 
   return (
     <div>
-      {/* <NicknameEditForm /> */}
+      <NicknameEditForm />
       <List
         style={{ marginBottom: '20px' }}
         grid={{ gutter: 4, xs: 2, md: 3 }}
