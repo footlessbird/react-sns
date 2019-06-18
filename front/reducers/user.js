@@ -48,6 +48,16 @@ export const REMOVE_FOLLOWER_FAILURE = "REMOVE_FOLLOWER_FAILURE";
 
 export const ADD_POST_TO_ME = "ADD_POST_TO_ME";
 
+export const LOAD_FOLLOWERS_REQUEST = 'LOAD_FOLLOWERS_REQUEST';
+export const LOAD_FOLLOWERS_SUCCESS = 'LOAD_FOLLOWERS_SUCCESS';
+export const LOAD_FOLLOWERS_FAILURE = 'LOAD_FOLLOWERS_FAILURE';
+
+export const LOAD_FOLLOWINGS_REQUEST = 'LOAD_FOLLOWINGS_REQUEST';
+export const LOAD_FOLLOWINGS_SUCCESS = 'LOAD_FOLLOWINGS_SUCCESS';
+export const LOAD_FOLLOWINGS_FAILURE = 'LOAD_FOLLOWINGS_FAILURE';
+
+
+
 //  동기요청의 경우 비동기 처럼 request -> success or failure 와 같이 기다리는 것 없이 바로 실행되는 것이라서
 //  redux-saga가 필요 없다
 //  export const INCREMENT_NUMBER = 'INCREMENT_NUMBER'
@@ -227,28 +237,66 @@ const reducer = (state = initState, action) => {
         ...state,
         me: {
           ...state.me,
-          Posts: [{ id: action.data }, ...state.me.Posts],
-        },
+          Posts: [{ id: action.data }, ...state.me.Posts]
+        }
+      };
+    }
+    case LOAD_FOLLOWERS_REQUEST: {
+      return {
+        ...state
+      };
+    }
+    case LOAD_FOLLOWERS_SUCCESS: {
+      return {
+        ...state,
+        followerList: action.data
+      };
+    }
+    case LOAD_FOLLOWERS_FAILURE: {
+      return {
+        ...state
+      };
+    }
+    case LOAD_FOLLOWINGS_REQUEST: {
+      return {
+        ...state
+      };
+    }
+    case LOAD_FOLLOWINGS_SUCCESS: {
+      return {
+        ...state,
+        followingList: action.data
+      };
+    }
+    case LOAD_FOLLOWINGS_FAILURE: {
+      return {
+        ...state
       };
     }
 
+    case REMOVE_FOLLOWER_REQUEST: {
+      return {
+        ...state
+      };
+    }
+    case REMOVE_FOLLOWER_SUCCESS: {
+      return {
+        ...state,
+        me: {
+          ...state.me,
+          Followers: state.me.Followers.filter(v => v.id !== action.data)
+        },
+        followerList: state.followerList.filter(v => v.id !== action.data)
+      };
+    }
+    case REMOVE_FOLLOWER_FAILURE: {
+      return {
+        ...state
+      };
+    }
     default:
       return state;
   }
 };
 
 export default reducer;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
