@@ -8,9 +8,10 @@ import UserProfile from './UserProfile';
 import { LOAD_USER_REQUEST } from '../reducers/user';
 
 const Layout = ({ children }) => {
-  const { isLoggedIn, me } = useSelector(state => state.user);
-  const dispatch = useDispatch();
+  const { me } = useSelector(state => state.user);
+  // const dispatch = useDispatch();
 
+  /*
   useEffect(() => {
     if (!me) {
       dispatch({
@@ -18,6 +19,7 @@ const Layout = ({ children }) => {
       });
     }
   }, []);
+  */
 
   return (
     <div>

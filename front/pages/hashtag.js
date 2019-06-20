@@ -9,12 +9,13 @@ const Hashtag = ({ tag }) => {
   const dispatch = useDispatch();
   const {mainPosts} = useSelector(state => state.post)
 
-  useEffect(() => {
-    dispatch({
-      type: LOAD_HASHTAG_POSTS_REQUEST,
-      data: tag
-    });
-  }, []);
+  // useEffect(() => {
+  //   dispatch({
+  //     type: LOAD_HASHTAG_POSTS_REQUEST,
+  //     data: tag
+  //   });
+  // }, []);
+
   return (
     <div>
       {mainPosts.map((c)=>{
@@ -29,8 +30,13 @@ Hashtag.propTypes = {
 };
 
 Hashtag.getInitialProps = async context => {
-  console.log("hashtag getInitialProps", context.query.tag);
-  return { tag: context.query.tag };
+  const tag = context.query.tag
+  console.log("hashtag getInitialProps", tag);
+  context.store.dispatch({
+    type: LOAD_HASHTAG_POSTS_REQUEST,
+    data: tag
+  })
+  return { tag };
 };
 
 export default Hashtag;

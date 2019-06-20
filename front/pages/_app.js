@@ -2,13 +2,15 @@ import React from "react";
 import Head from "next/head";
 import PropTypes from "prop-types";
 import withRedux from "next-redux-wrapper";
+import withReduxSaga from "next-redux-saga";
 import { createStore, compose, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import createSagaMiddleware from "redux-saga";
+import axios from "axios";
 import Layout from "../components/Layout";
 import rootReducer from "../reducers";
 import rootSaga from "../sagas";
-// import createSagaMiddleware from "@redux-saga/core";
+import { LOAD_USER_REQUEST } from "../reducers/user";
 
 const Dear = ({ Component, store, pageProps }) => {
   console.log(pageProps);
@@ -46,12 +48,49 @@ Dear.propTypes = {
   pageProps: PropTypes.object.isRequired
 };
 // next가 실행해줌
-Dear.getInitialProps = async context => {
-  console.log(context);
+
+// Dear.getInitialProps = async context => {
+//   console.log(context);
+//   const { ctx, Component } = context;
+//   let pageProps = {};
+
+//   const state = ctx.store.getState();
+//   const cookie = ctx.isServer ? ctx.req.headers.cookie : "";
+//   console.log(cookie);
+//   if (ctx.isServer && cookie) {
+//     axios.defaults.headers.Cookie = cookie;
+//   }
+
+//   if (!state.user.me) {
+//     ctx.store.dispatch({
+//       type: LOAD_USER_REQUEST
+//     });
+//   }
+
+//   if (Component.getInitialProps) {
+//     pageProps = await Component.getInitialProps(ctx);
+//   }
+
+//   return { pageProps };
+// };
+
+Dear.getInitialProps = async (context) => {
+  console.log(context)
   const { ctx, Component } = context;
   let pageProps = {};
+  const state = ctx.store.getState();
+  const cookie = ctx.isServer ? ctx.req.headers.cookie : '';
+  console.log(cookie)
+  if (ctx.isServer && cookie) {
+    axios.defaults.headers.Cookie = cookie;
+  }
+  if (!state.user.me) {
+    ctx.store.dispatch({
+      type: LOAD_USER_REQUEST,
+    });
+  }
   if (Component.getInitialProps) {
-    pageProps = await Component.getInitialProps(ctx);
+    pageProps = await Component.getInitialProps(ctx) || {};
   }
   return { pageProps };
 };
@@ -71,8 +110,8 @@ const configureStore = (initialState, options) => {
         );
 
   const store = createStore(rootReducer, initialState, enhancer);
-  sagaMiddleware.run(rootSaga);
+  store.sagaTask = sagaMiddleware.run(rootSaga);
   return store;
 };
 
-export default withRedux(configureStore)(Dear); // HOC
+export default withRedux(configureStore)(withReduxSaga(Dear)); // HOC

@@ -12,8 +12,7 @@ export const initState = {
   followerList: [], // 팔로워 리스트
   userInfo: null, // 남의 정보
   isEditingNickname: false, // 이름 변경 중
-  editNicknameError: '', // 이름 변경 실패 사유
-
+  editNicknameError: "" // 이름 변경 실패 사유
 };
 
 // 액션 타입
@@ -50,6 +49,7 @@ export const REMOVE_FOLLOWER_SUCCESS = "REMOVE_FOLLOWER_SUCCESS";
 export const REMOVE_FOLLOWER_FAILURE = "REMOVE_FOLLOWER_FAILURE";
 
 export const ADD_POST_TO_ME = "ADD_POST_TO_ME";
+export const REMOVE_POST_OF_ME = "REMOVE_POST_OF_ME";
 
 export const LOAD_FOLLOWERS_REQUEST = "LOAD_FOLLOWERS_REQUEST";
 export const LOAD_FOLLOWERS_SUCCESS = "LOAD_FOLLOWERS_SUCCESS";
@@ -246,6 +246,16 @@ const reducer = (state = initState, action) => {
         }
       };
     }
+    case REMOVE_POST_OF_ME: {
+      return {
+        ...state,
+        me: {
+          ...state.me,
+          Posts: state.me.Posts.filter(v => v.id !== action.data)
+        }
+      };
+    }
+
     case LOAD_FOLLOWERS_REQUEST: {
       return {
         ...state

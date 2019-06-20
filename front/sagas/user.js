@@ -121,10 +121,41 @@ function* watchLogout() {
   yield takeEvery(LOG_OUT_REQUEST, logout);
 }
 
+// function loadUserAPI(userId) {
+//   // 서버에 요청을 보내는 부분
+//   return axios.get(userId ? `/user/${userId}` : "/user/", {
+//     withCredentials: true // 클라이언트에서 요청을 보낼 때, 브라우저가 쿠키를 같이 보내주지만, 
+//   });                     // 서버사이드 렌더링의 경우 브라우저가 없기에 쿠키를 수동으로 보내줘야 함
+// }
+
+// function* loadUser(action) {
+//   try {
+//     // yield call(loadUserAPI);
+//     const result = yield call(loadUserAPI, action.data);
+//     yield put({
+//       // put은 dispatch 동일
+//       type: LOAD_USER_SUCCESS,
+//       data: result.data,
+//       me: !action.data
+//     });
+//   } catch (e) {
+//     // loginAPI 실패
+//     console.error(e);
+//     yield put({
+//       type: LOAD_USER_FAILURE,
+//       error: e
+//     });
+//   }
+// }
+
+// function* watchLoadUser() {
+//   yield takeEvery(LOAD_USER_REQUEST, loadUser);
+// }
+
 function loadUserAPI(userId) {
   // 서버에 요청을 보내는 부분
-  return axios.get(userId ? `/user/${userId}` : "/user/", {
-    withCredentials: true
+  return axios.get(userId ? `/user/${userId}` : '/user/', {
+    withCredentials: true,
   });
 }
 
@@ -132,18 +163,16 @@ function* loadUser(action) {
   try {
     // yield call(loadUserAPI);
     const result = yield call(loadUserAPI, action.data);
-    yield put({
-      // put은 dispatch 동일
+    yield put({ // put은 dispatch 동일
       type: LOAD_USER_SUCCESS,
       data: result.data,
-      me: !action.data
+      me: !action.data,
     });
-  } catch (e) {
-    // loginAPI 실패
+  } catch (e) { // loginAPI 실패
     console.error(e);
     yield put({
       type: LOAD_USER_FAILURE,
-      error: e
+      error: e,
     });
   }
 }
@@ -151,6 +180,8 @@ function* loadUser(action) {
 function* watchLoadUser() {
   yield takeEvery(LOAD_USER_REQUEST, loadUser);
 }
+
+
 
 function followAPI(userId) {
   // 서버에 요청을 보내는 부분
@@ -218,7 +249,7 @@ function* watchUnfollow() {
 
 function loadFollowersAPI(userId) {
   // 서버에 요청을 보내는 부분
-  return axios.get(`/user/${userId}/followers`, {
+  return axios.get(`/user/${userId || 0}/followers`, {
     withCredentials: true
   });
 }
@@ -248,7 +279,7 @@ function* watchLoadFollowers() {
 
 function loadFollowingsAPI(userId) {
   // 서버에 요청을 보내는 부분
-  return axios.get(`/user/${userId}/followings`, {
+  return axios.get(`/user/${userId || 0}/followings`, {
     withCredentials: true
   });
 }

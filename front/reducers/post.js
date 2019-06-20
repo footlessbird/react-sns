@@ -160,7 +160,7 @@ const reducer = (state = initState, action) => {
       return {
         ...state,
         isAddingPost: false,
-        addPostError: action.error,
+        addPostError: action.error
       };
     }
     case ADD_COMMENT_REQUEST:
@@ -224,6 +224,29 @@ const reducer = (state = initState, action) => {
       return {
         ...state
       };
+
+    case REMOVE_POST_REQUEST: {
+      // break;
+      return {
+        ...state,
+      }
+    }
+    case REMOVE_POST_SUCCESS: {
+      // const index = draft.mainPosts.findIndex(v => v.id === action.data);
+      // draft.mainPosts.splice(index, 1);
+      // break;
+      return {
+        ...state,
+        mainPosts: state.mainPosts.filter(v => v.id !== action.data)
+      }
+
+    }
+    case REMOVE_POST_FAILURE: {
+      // break;
+      return {
+        ...state
+      }
+    }
 
     default:
       return state;
