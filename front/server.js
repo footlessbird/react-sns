@@ -29,8 +29,11 @@ app.prepare().then(() => {
     },
   }));
 
+  server.get('/post/:id', (req, res) => {
+    return app.render(req, res, '/post', { id: req.params.id });
+  });
+
   server.get('/hashtag/:tag', (req, res) => {
-    console.log(req.params.tag )
     return app.render(req, res, '/hashtag', { tag: req.params.tag });
   });
 
@@ -42,7 +45,7 @@ app.prepare().then(() => {
     return handle(req, res);
   });
 
-  server.listen(3000, () => {
-    console.log('next x express running on port 3000');
+  server.listen(3060, () => {
+    console.log('next+express running on port 3060');
   });
 });

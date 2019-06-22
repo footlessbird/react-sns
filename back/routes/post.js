@@ -25,7 +25,7 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => { // POST 
   try {
     const hashtags = req.body.content.match(/#[^\s]+/g);
     const newPost = await db.Post.create({
-      content: req.body.content, 
+      content: req.body.content, // ex) '제로초 파이팅 #구독 #좋아요 눌러주세요'
       UserId: req.user.id,
     });
     if (hashtags) {
@@ -72,6 +72,38 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => { // POST 
 router.post('/images', upload.array('image'), (req, res) => {
   console.log(req.files);
   res.json(req.files.map(v => v.filename));
+});
+
+router.get('/:id', async (req, res, next) => {
+  try {
+    const post = await db.Post.findOne({
+      where: { id: req.params.id },
+      include: [{
+        model: db.User,
+        attributes: ['id', 'nickname'],
+      }, {
+        model: db.Image,
+      }],
+    });
+    res.json(post);
+  } catch (e) {
+    console.error(e);
+    next(e);
+  }
+});
+
+router.delete('/:id', isLoggedIn, async (req, res, next) => {
+  try {
+    const post = await db.Post.findOne({ where: { id: req.params.id } });
+    if (!post) {
+      return res.status(404).send('포스트가 존재하지 않습니다.');
+    }
+    await db.Post.destroy({ where: { id: req.params.id } });
+    res.send(req.params.id);
+  } catch (e) {
+    console.error(e);
+    next(e);
+  }
 });
 
 router.get('/:id/comments', async (req, res, next) => {
@@ -168,7 +200,7 @@ router.post('/:id/retweet', isLoggedIn, async (req, res, next) => {
     if (req.user.id === post.UserId || (post.Retweet && post.Retweet.UserId === req.user.id)) {
       return res.status(403).send('자신의 글은 리트윗할 수 없습니다.');
     }
-    const retweetTargetId = post.RetweetId || post.id;  // 원본 게시글을 리트윗 할 때 / 리트윗된 게시글을 다시 리트윗 할 때
+    const retweetTargetId = post.RetweetId || post.id;
     const exPost = await db.Post.findOne({
       where: {
         UserId: req.user.id,
@@ -200,21 +232,6 @@ router.post('/:id/retweet', isLoggedIn, async (req, res, next) => {
       }],
     });
     res.json(retweetWithPrevPost);
-  } catch (e) {
-    console.error(e);
-    next(e);
-  }
-});
-
-
-router.delete('/:id', isLoggedIn, async (req, res, next) => {
-  try {
-    const post = await db.Post.findOne({ where: { id: req.params.id } });
-    if (!post) {
-      return res.status(404).send('포스트가 존재하지 않습니다.');
-    }
-    await db.Post.destroy({ where: { id: req.params.id } });
-    res.send(req.params.id);
   } catch (e) {
     console.error(e);
     next(e);
