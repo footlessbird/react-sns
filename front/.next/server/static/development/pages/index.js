@@ -128,9 +128,9 @@ var FollowButton = Object(react__WEBPACK_IMPORTED_MODULE_0__["memo"])(function (
     return v.id === post.User.id;
   }) ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
     onClick: onUnfollow(post.User.id)
-  }, "\uC5B8\uD314\uB85C\uC6B0") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+  }, "Unfollow") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
     onClick: onFollow(post.User.id)
-  }, "\uD314\uB85C\uC6B0");
+  }, "Follow");
 });
 FollowButton.propTypes = {
   post: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object.isRequired,
@@ -483,7 +483,7 @@ var CommentForm = function CommentForm(_ref) {
     e.preventDefault();
 
     if (!me) {
-      return alert('로그인이 필요합니다.');
+      return alert('Please login first');
     }
 
     return dispatch({
@@ -510,7 +510,7 @@ var CommentForm = function CommentForm(_ref) {
     type: "primary",
     htmlType: "submit",
     loading: isAddingComment
-  }, "\uC090\uC57D"));
+  }, "Comment"));
 };
 
 CommentForm.propTypes = {
@@ -608,7 +608,7 @@ var PostCard = Object(react__WEBPACK_IMPORTED_MODULE_2__["memo"])(function (_ref
   }, []);
   var onToggleLike = Object(react__WEBPACK_IMPORTED_MODULE_2__["useCallback"])(function () {
     if (!id) {
-      return alert('로그인이 필요합니다!');
+      return alert('Please login first');
     }
 
     if (liked) {
@@ -627,7 +627,7 @@ var PostCard = Object(react__WEBPACK_IMPORTED_MODULE_2__["memo"])(function (_ref
   }, [id, post && post.id, liked]);
   var onRetweet = Object(react__WEBPACK_IMPORTED_MODULE_2__["useCallback"])(function () {
     if (!id) {
-      return alert('로그인이 필요합니다.');
+      return alert('Please login first');
     }
 
     return dispatch({
@@ -679,14 +679,14 @@ var PostCard = Object(react__WEBPACK_IMPORTED_MODULE_2__["memo"])(function (_ref
       onClick: onToggleComment
     }), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Popover"], {
       key: "ellipsis",
-      content: react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"].Group, null, id && post.UserId === id ? react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"], null, "\uC218\uC815"), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+      content: react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"].Group, null, id && post.UserId === id ? react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"], null, "Update"), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"], {
         type: "danger",
         onClick: onRemovePost(post.id)
-      }, "\uC0AD\uC81C")) : react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"], null, "\uC2E0\uACE0"))
+      }, "Delete")) : react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"], null, "Report"))
     }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Icon"], {
       type: "ellipsis"
     }))],
-    title: post.RetweetId ? "".concat(post.User.nickname, "\uB2D8\uC774 \uB9AC\uD2B8\uC717\uD558\uC168\uC2B5\uB2C8\uB2E4.") : null,
+    title: post.RetweetId ? "".concat(post.User.nickname, " tweeted") : null,
     extra: react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_FollowButton__WEBPACK_IMPORTED_MODULE_14__["default"], {
       post: post,
       onUnfollow: onUnfollow,
@@ -737,7 +737,7 @@ var PostCard = Object(react__WEBPACK_IMPORTED_MODULE_2__["memo"])(function (_ref
   }))), commentFormOpened && react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_CommentForm__WEBPACK_IMPORTED_MODULE_13__["default"], {
     post: post
   }), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["List"], {
-    header: "".concat(post.Comments ? post.Comments.length : 0, " \uB313\uAE00"),
+    header: "".concat(post.Comments ? post.Comments.length : 0, " comments"),
     itemLayout: "horizontal",
     dataSource: post.Comments || [],
     renderItem: function renderItem(item) {

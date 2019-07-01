@@ -9,7 +9,7 @@ const FollowList = memo(({ header, hasMore, onClickMore, data, onClickStop }) =>
       grid={{ gutter: 4, xs: 2, md: 3 }}
       size="small"
       header={<div>{header}</div>}
-      loadMore={hasMore && <Button style={{ width: '100%' }} onClick={onClickMore}>더 보기</Button>}
+      loadMore={hasMore && <Button style={{ width: '100%' }} onClick={onClickMore}>More</Button>}
       bordered
       dataSource={data}
       renderItem={item => (

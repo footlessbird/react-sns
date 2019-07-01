@@ -49,14 +49,14 @@ const Profile = () => {
     <div>
       <NicknameEditForm />
       <FollowList
-        header="팔로잉 목록"
+        header="Following list"
         hasMore={hasMoreFollowing}
         onClickMore={loadMoreFollowings}
         data={followingList}
         onClickStop={onUnfollow}
       />
       <FollowList
-        header="팔로워 목록"
+        header="Follower list"
         hasMore={hasMoreFollower}
         onClickMore={loadMoreFollowers}
         data={followerList}

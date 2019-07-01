@@ -43,7 +43,7 @@ const PostCard = memo(({ post }) => {
 
   const onToggleLike = useCallback(() => {
     if (!id) {
-      return alert('로그인이 필요합니다!');
+      return alert('Please login first');
     }
     if (liked) { // 좋아요 누른 상태
       dispatch({
@@ -60,7 +60,7 @@ const PostCard = memo(({ post }) => {
 
   const onRetweet = useCallback(() => {
     if (!id) {
-      return alert('로그인이 필요합니다.');
+      return alert('Please login first');
     }
     return dispatch({
       type: RETWEET_REQUEST,
@@ -110,18 +110,18 @@ const PostCard = memo(({ post }) => {
                 {id && post.UserId === id
                   ? (
                     <>
-                      <Button>수정</Button>
-                      <Button type="danger" onClick={onRemovePost(post.id)}>삭제</Button>
+                      <Button>Update</Button>
+                      <Button type="danger" onClick={onRemovePost(post.id)}>Delete</Button>
                     </>
                   )
-                  : <Button>신고</Button>}
+                  : <Button>Report</Button>}
               </Button.Group>
             )}
           >
             <Icon type="ellipsis" />
           </Popover>,
         ]}
-        title={post.RetweetId ? `${post.User.nickname}님이 리트윗하셨습니다.` : null}
+        title={post.RetweetId ? `${post.User.nickname} tweeted` : null}
         extra={<FollowButton post={post} onUnfollow={onUnfollow} onFollow={onFollow} />}
       >
         {post.RetweetId && post.Retweet
@@ -163,7 +163,7 @@ const PostCard = memo(({ post }) => {
         <>
           <CommentForm post={post} />
           <List
-            header={`${post.Comments ? post.Comments.length : 0} 댓글`}
+            header={`${post.Comments ? post.Comments.length : 0} comments`}
             itemLayout="horizontal"
             dataSource={post.Comments || []}
             renderItem={item => (
