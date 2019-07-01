@@ -1,6 +1,7 @@
 # Security #
 ############
 *.env
+*.pem
 
 # Compiled source #
 ###################
