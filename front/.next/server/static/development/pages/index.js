@@ -93,6 +93,54 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
+/***/ "./components/FollowButton.js":
+/*!************************************!*\
+  !*** ./components/FollowButton.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "antd");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "prop-types");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "react-redux");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+var FollowButton = Object(react__WEBPACK_IMPORTED_MODULE_0__["memo"])(function (_ref) {
+  var post = _ref.post,
+      onUnfollow = _ref.onUnfollow,
+      onFollow = _ref.onFollow;
+
+  var _useSelector = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useSelector"])(function (state) {
+    return state.user;
+  }),
+      me = _useSelector.me;
+
+  return !me || post.User.id === me.id ? null : me.Followings && me.Followings.find(function (v) {
+    return v.id === post.User.id;
+  }) ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    onClick: onUnfollow(post.User.id)
+  }, "\uC5B8\uD314\uB85C\uC6B0") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    onClick: onFollow(post.User.id)
+  }, "\uD314\uB85C\uC6B0");
+});
+FollowButton.propTypes = {
+  post: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object.isRequired,
+  onUnfollow: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func.isRequired,
+  onFollow: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func.isRequired
+};
+/* harmony default export */ __webpack_exports__["default"] = (FollowButton);
+
+/***/ }),
+
 /***/ "./components/ImagesZoom/index.js":
 /*!****************************************!*\
   !*** ./components/ImagesZoom/index.js ***!
@@ -385,6 +433,93 @@ PostImages.propTypes = {
 
 /***/ }),
 
+/***/ "./containers/CommentForm.js":
+/*!***********************************!*\
+  !*** ./containers/CommentForm.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/slicedToArray */ "./node_modules/@babel/runtime-corejs2/helpers/esm/slicedToArray.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ "antd");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(antd__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "react-redux");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! prop-types */ "prop-types");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _reducers_post__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../reducers/post */ "./reducers/post.js");
+
+
+
+
+
+
+
+var CommentForm = function CommentForm(_ref) {
+  var post = _ref.post;
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(''),
+      _useState2 = Object(_babel_runtime_corejs2_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
+      commentText = _useState2[0],
+      setCommentText = _useState2[1];
+
+  var _useSelector = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useSelector"])(function (state) {
+    return state.post;
+  }),
+      commentAdded = _useSelector.commentAdded,
+      isAddingComment = _useSelector.isAddingComment;
+
+  var _useSelector2 = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useSelector"])(function (state) {
+    return state.user;
+  }),
+      me = _useSelector2.me;
+
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useDispatch"])();
+  var onSubmitComment = Object(react__WEBPACK_IMPORTED_MODULE_2__["useCallback"])(function (e) {
+    e.preventDefault();
+
+    if (!me) {
+      return alert('로그인이 필요합니다.');
+    }
+
+    return dispatch({
+      type: _reducers_post__WEBPACK_IMPORTED_MODULE_5__["ADD_COMMENT_REQUEST"],
+      data: {
+        postId: post.id,
+        content: commentText
+      }
+    });
+  }, [me && me.id, commentText]);
+  Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
+    setCommentText('');
+  }, [commentAdded === true]);
+  var onChangeCommentText = Object(react__WEBPACK_IMPORTED_MODULE_2__["useCallback"])(function (e) {
+    setCommentText(e.target.value);
+  }, []);
+  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"], {
+    onSubmit: onSubmitComment
+  }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Form"].Item, null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"].TextArea, {
+    rows: 4,
+    value: commentText,
+    onChange: onChangeCommentText
+  })), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    type: "primary",
+    htmlType: "submit",
+    loading: isAddingComment
+  }, "\uC090\uC57D"));
+};
+
+CommentForm.propTypes = {
+  post: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.object.isRequired
+};
+/* harmony default export */ __webpack_exports__["default"] = (CommentForm);
+
+/***/ }),
+
 /***/ "./containers/PostCard.js":
 /*!********************************!*\
   !*** ./containers/PostCard.js ***!
@@ -408,10 +543,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! styled-components */ "styled-components");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _reducers_post__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../reducers/post */ "./reducers/post.js");
-/* harmony import */ var _components_PostImages__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/PostImages */ "./components/PostImages.js");
-/* harmony import */ var _components_PostCardContent__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/PostCardContent */ "./components/PostCardContent.js");
-/* harmony import */ var _reducers_user__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../reducers/user */ "./reducers/user.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! moment */ "moment");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _reducers_post__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../reducers/post */ "./reducers/post.js");
+/* harmony import */ var _components_PostImages__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/PostImages */ "./components/PostImages.js");
+/* harmony import */ var _components_PostCardContent__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/PostCardContent */ "./components/PostCardContent.js");
+/* harmony import */ var _reducers_user__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../reducers/user */ "./reducers/user.js");
+/* harmony import */ var _CommentForm__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./CommentForm */ "./containers/CommentForm.js");
+/* harmony import */ var _components_FollowButton__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/FollowButton */ "./components/FollowButton.js");
 
 
 
@@ -435,9 +574,12 @@ function _templateObject() {
 
 
 
-var CardWrapper = styled_components__WEBPACK_IMPORTED_MODULE_7___default.a.div(_templateObject());
 
-var PostCard = function PostCard(_ref) {
+
+
+moment__WEBPACK_IMPORTED_MODULE_8___default.a.locale('ko');
+var CardWrapper = styled_components__WEBPACK_IMPORTED_MODULE_7___default.a.div(_templateObject());
+var PostCard = Object(react__WEBPACK_IMPORTED_MODULE_2__["memo"])(function (_ref) {
   var post = _ref.post;
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(false),
@@ -445,25 +587,12 @@ var PostCard = function PostCard(_ref) {
       commentFormOpened = _useState2[0],
       setCommentFormOpened = _useState2[1];
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_2__["useState"])(''),
-      _useState4 = Object(_babel_runtime_corejs2_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState3, 2),
-      commentText = _useState4[0],
-      setCommentText = _useState4[1];
-
-  var _useSelector = Object(react_redux__WEBPACK_IMPORTED_MODULE_6__["useSelector"])(function (state) {
-    return state.user;
-  }),
-      me = _useSelector.me;
-
-  var _useSelector2 = Object(react_redux__WEBPACK_IMPORTED_MODULE_6__["useSelector"])(function (state) {
-    return state.post;
-  }),
-      commentAdded = _useSelector2.commentAdded,
-      isAddingComment = _useSelector2.isAddingComment;
-
+  var id = Object(react_redux__WEBPACK_IMPORTED_MODULE_6__["useSelector"])(function (state) {
+    return state.user.me && state.user.me.id;
+  });
   var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_6__["useDispatch"])();
-  var liked = me && post.Likers && post.Likers.find(function (v) {
-    return v.id === me.id;
+  var liked = id && post.Likers && post.Likers.find(function (v) {
+    return v.id === id;
   });
   var onToggleComment = Object(react__WEBPACK_IMPORTED_MODULE_2__["useCallback"])(function () {
     setCommentFormOpened(function (prev) {
@@ -472,65 +601,44 @@ var PostCard = function PostCard(_ref) {
 
     if (!commentFormOpened) {
       dispatch({
-        type: _reducers_post__WEBPACK_IMPORTED_MODULE_8__["LOAD_COMMENTS_REQUEST"],
+        type: _reducers_post__WEBPACK_IMPORTED_MODULE_9__["LOAD_COMMENTS_REQUEST"],
         data: post.id
       });
     }
   }, []);
-  var onSubmitComment = Object(react__WEBPACK_IMPORTED_MODULE_2__["useCallback"])(function (e) {
-    e.preventDefault();
-
-    if (!me) {
-      return alert('Please login first');
-    }
-
-    return dispatch({
-      type: _reducers_post__WEBPACK_IMPORTED_MODULE_8__["ADD_COMMENT_REQUEST"],
-      data: {
-        postId: post.id,
-        content: commentText
-      }
-    });
-  }, [me && me.id, commentText]);
-  Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
-    setCommentText('');
-  }, [commentAdded === true]);
-  var onChangeCommentText = Object(react__WEBPACK_IMPORTED_MODULE_2__["useCallback"])(function (e) {
-    setCommentText(e.target.value);
-  }, []);
   var onToggleLike = Object(react__WEBPACK_IMPORTED_MODULE_2__["useCallback"])(function () {
-    if (!me) {
-      return alert('Please login first');
+    if (!id) {
+      return alert('로그인이 필요합니다!');
     }
 
     if (liked) {
       // 좋아요 누른 상태
       dispatch({
-        type: _reducers_post__WEBPACK_IMPORTED_MODULE_8__["UNLIKE_POST_REQUEST"],
+        type: _reducers_post__WEBPACK_IMPORTED_MODULE_9__["UNLIKE_POST_REQUEST"],
         data: post.id
       });
     } else {
       // 좋아요 안 누른 상태
       dispatch({
-        type: _reducers_post__WEBPACK_IMPORTED_MODULE_8__["LIKE_POST_REQUEST"],
+        type: _reducers_post__WEBPACK_IMPORTED_MODULE_9__["LIKE_POST_REQUEST"],
         data: post.id
       });
     }
-  }, [me && me.id, post && post.id, liked]);
+  }, [id, post && post.id, liked]);
   var onRetweet = Object(react__WEBPACK_IMPORTED_MODULE_2__["useCallback"])(function () {
-    if (!me) {
-      return alert('Please login first');
+    if (!id) {
+      return alert('로그인이 필요합니다.');
     }
 
     return dispatch({
-      type: _reducers_post__WEBPACK_IMPORTED_MODULE_8__["RETWEET_REQUEST"],
+      type: _reducers_post__WEBPACK_IMPORTED_MODULE_9__["RETWEET_REQUEST"],
       data: post.id
     });
-  }, [me && me.id, post && post.id]);
+  }, [id, post && post.id]);
   var onFollow = Object(react__WEBPACK_IMPORTED_MODULE_2__["useCallback"])(function (userId) {
     return function () {
       dispatch({
-        type: _reducers_user__WEBPACK_IMPORTED_MODULE_11__["FOLLOW_USER_REQUEST"],
+        type: _reducers_user__WEBPACK_IMPORTED_MODULE_12__["FOLLOW_USER_REQUEST"],
         data: userId
       });
     };
@@ -538,7 +646,7 @@ var PostCard = function PostCard(_ref) {
   var onUnfollow = Object(react__WEBPACK_IMPORTED_MODULE_2__["useCallback"])(function (userId) {
     return function () {
       dispatch({
-        type: _reducers_user__WEBPACK_IMPORTED_MODULE_11__["UNFOLLOW_USER_REQUEST"],
+        type: _reducers_user__WEBPACK_IMPORTED_MODULE_12__["UNFOLLOW_USER_REQUEST"],
         data: userId
       });
     };
@@ -546,13 +654,13 @@ var PostCard = function PostCard(_ref) {
   var onRemovePost = Object(react__WEBPACK_IMPORTED_MODULE_2__["useCallback"])(function (userId) {
     return function () {
       dispatch({
-        type: _reducers_post__WEBPACK_IMPORTED_MODULE_8__["REMOVE_POST_REQUEST"],
+        type: _reducers_post__WEBPACK_IMPORTED_MODULE_9__["REMOVE_POST_REQUEST"],
         data: userId
       });
     };
   });
   return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(CardWrapper, null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Card"], {
-    cover: post.Images && post.Images[0] && react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_PostImages__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    cover: post.Images && post.Images[0] && react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_PostImages__WEBPACK_IMPORTED_MODULE_10__["default"], {
       images: post.Images
     }),
     actions: [react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Icon"], {
@@ -571,26 +679,28 @@ var PostCard = function PostCard(_ref) {
       onClick: onToggleComment
     }), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Popover"], {
       key: "ellipsis",
-      content: react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"].Group, null, me && post.UserId === me.id ? react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"], null, "Update"), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+      content: react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"].Group, null, id && post.UserId === id ? react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"], null, "\uC218\uC815"), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"], {
         type: "danger",
         onClick: onRemovePost(post.id)
-      }, "Delete")) : react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"], null, "Report"))
+      }, "\uC0AD\uC81C")) : react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"], null, "\uC2E0\uACE0"))
     }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Icon"], {
       type: "ellipsis"
     }))],
-    title: post.RetweetId ? "".concat(post.User.nickname, " retweeted it") : null,
-    extra: !me || post.User.id === me.id ? null : me.Followings && me.Followings.find(function (v) {
-      return v.id === post.User.id;
-    }) ? react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"], {
-      onClick: onUnfollow(post.User.id)
-    }, "Unfollow") : react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"], {
-      onClick: onFollow(post.User.id)
-    }, "Follow")
+    title: post.RetweetId ? "".concat(post.User.nickname, "\uB2D8\uC774 \uB9AC\uD2B8\uC717\uD558\uC168\uC2B5\uB2C8\uB2E4.") : null,
+    extra: react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_FollowButton__WEBPACK_IMPORTED_MODULE_14__["default"], {
+      post: post,
+      onUnfollow: onUnfollow,
+      onFollow: onFollow
+    })
   }, post.RetweetId && post.Retweet ? react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Card"], {
-    cover: post.Retweet.Images[0] && react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_PostImages__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    cover: post.Retweet.Images[0] && react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_PostImages__WEBPACK_IMPORTED_MODULE_10__["default"], {
       images: post.Retweet.Images
     })
-  }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Card"].Meta, {
+  }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("span", {
+    style: {
+      float: 'right'
+    }
+  }, moment__WEBPACK_IMPORTED_MODULE_8___default()(post.createdAt).format('YYYY.MM.DD.')), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Card"].Meta, {
     avatar: react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
       href: {
         pathname: '/user',
@@ -601,11 +711,15 @@ var PostCard = function PostCard(_ref) {
       as: "/user/".concat(post.Retweet.User.id)
     }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Avatar"], null, post.Retweet.User.nickname[0]))),
     title: post.Retweet.User.nickname,
-    description: react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_PostCardContent__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    description: react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_PostCardContent__WEBPACK_IMPORTED_MODULE_11__["default"], {
       postData: post.Retweet.content
     }) // a tag x -> Link
 
-  })) : react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Card"].Meta, {
+  })) : react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("span", {
+    style: {
+      float: 'right'
+    }
+  }, moment__WEBPACK_IMPORTED_MODULE_8___default()(post.createdAt).format('YYYY.MM.DD.')), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Card"].Meta, {
     avatar: react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_4___default.a, {
       href: {
         pathname: '/user',
@@ -616,22 +730,14 @@ var PostCard = function PostCard(_ref) {
       as: "/user/".concat(post.User.id)
     }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Avatar"], null, post.User.nickname[0]))),
     title: post.User.nickname,
-    description: react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_PostCardContent__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    description: react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_PostCardContent__WEBPACK_IMPORTED_MODULE_11__["default"], {
       postData: post.content
     }) // a tag x -> Link
 
-  })), commentFormOpened && react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Form"], {
-    onSubmit: onSubmitComment
-  }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Form"].Item, null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Input"].TextArea, {
-    rows: 4,
-    value: commentText,
-    onChange: onChangeCommentText
-  })), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["Button"], {
-    type: "primary",
-    htmlType: "submit",
-    loading: isAddingComment
-  }, "\uC090\uC57D")), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["List"], {
-    header: "".concat(post.Comments ? post.Comments.length : 0, " comment(s)"),
+  }))), commentFormOpened && react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_CommentForm__WEBPACK_IMPORTED_MODULE_13__["default"], {
+    post: post
+  }), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_3__["List"], {
+    header: "".concat(post.Comments ? post.Comments.length : 0, " \uB313\uAE00"),
     itemLayout: "horizontal",
     dataSource: post.Comments || [],
     renderItem: function renderItem(item) {
@@ -650,8 +756,7 @@ var PostCard = function PostCard(_ref) {
       }));
     }
   })));
-};
-
+});
 PostCard.propTypes = {
   post: prop_types__WEBPACK_IMPORTED_MODULE_5___default.a.shape({
     User: prop_types__WEBPACK_IMPORTED_MODULE_5___default.a.object,
@@ -2560,6 +2665,17 @@ module.exports = require("core-js/library/fn/symbol/iterator");
 /***/ (function(module, exports) {
 
 module.exports = require("immer");
+
+/***/ }),
+
+/***/ "moment":
+/*!*************************!*\
+  !*** external "moment" ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("moment");
 
 /***/ }),
 
