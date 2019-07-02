@@ -40,6 +40,11 @@ app.use(expressSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.get('/', (req, res)=>{
+  res.send('react-sns back-end successfully working');
+
+})
+
 // API는 다른 서비스가 내 서비스의 기능을 실행할 수 있게 열어둔 창구
 app.use('/api/user', userAPIRouter);
 app.use('/api/post', postAPIRouter);
