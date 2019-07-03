@@ -19,7 +19,7 @@ const Post = ({ id }) => {
         }, {
           property: 'og:description', content: singlePost.content,
         }, {
-          property: 'og:image', content: singlePost.Images[0] && `http://api.dear-sns.club/${singlePost.Images[0].src}`,
+          property: 'og:image', content: singlePost.Images[0] && singlePost.Images[0].src,
         }, {
           property: 'og:url', content: `http://dear-sns.club/post/${id}`,
         }]}
@@ -27,7 +27,7 @@ const Post = ({ id }) => {
       <div itemScope="content">{singlePost.content}</div>
       <div itemScope="author">{singlePost.User.nickname}</div>
       <div>
-        {singlePost.Images[0] && <img src={`${backUrl}/${singlePost.Images[0].src}`} />}
+        {singlePost.Images[0] && <img src={singlePost.Images[0].src} />}
       </div>
     </>
   );
