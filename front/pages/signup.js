@@ -96,7 +96,7 @@ const Signup = () => {
           {termError && <div style={{ color: 'red' }}>You need to agree with term</div>}
         </div>
         <div style={{ marginTop: 10 }}>
-          <Button type="primary" htmlType="submit" loading={isSigningUp}>Register</Button>
+          <Button type="primary" htmlType="submit" loading={isSigningUp}>New</Button>
         </div>
       </Form>
     </>
