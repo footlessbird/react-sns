@@ -39,6 +39,7 @@ const Signup = () => {
     if (!term) {
       return setTermError(true);
     }
+    alert('Account created successfully, now you can login')
     return dispatch({
       type: SIGN_UP_REQUEST,
       data: {
