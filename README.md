@@ -6,10 +6,11 @@
 [Demo](http://dear sns.club) 
 
 *****
-### At a glance
+## At a glance
 ![structure](./images/structure.png)
 
-### Why divided into front-end 'server' / back-end 'server'
+### Why divided into front-end / back-end 'server' ?
+
 
 
 
