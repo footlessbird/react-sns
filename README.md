@@ -48,8 +48,8 @@ A user can make many posts and comments => `hasMany`
 Little tricky thing here is generally a hashtag can have many posts. Let's imagine #love on Instagram
 likewise, a post so in this case, we set both like below so      
 `db.Post.belongsToMany(db.Hashtag, { through: 'PostHashtag' };`   
-`db.Hashtag.belongsToMany(db.Post, { through: 'PostHashtag' });`
-
+`db.Hashtag.belongsToMany(db.Post, { through: 'PostHashtag' });`   
+You can also look up this [Sequelize's documentation](http://docs.sequelizejs.com/class/lib/associations/base.js~Association.html)
 
 
 
