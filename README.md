@@ -11,9 +11,9 @@
 
 ### Why divided into front-end / back-end 'server' ? 🤷🏻‍♀️🤷🏼‍♂️
 
-Because the rolls are different🍴
-Front is to transmit mainly HTML/CSS nad JS files.
-On the other hand, Back is to store and handle data from Front accordingly.
+Because the rolls are different🍴  
+Front is to transmit mainly HTML/CSS and JS files.  
+On the other hand, Back is to store and handle data from Front accordingly.  
 
 
 
