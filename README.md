@@ -11,7 +11,7 @@
 
 ### Why divided into front-end / back-end 'server' ? 🤷🏻‍♀️🤷🏼‍♂️
 
-Because the rolls are different🍴  
+Because the rolls are different.🍴  
 Front is to transmit mainly HTML/CSS and JS files.  
 On the other hand, Back is to store and handle data from Front accordingly.  
 
@@ -21,7 +21,7 @@ On the other hand, Back is to store and handle data from Front accordingly.
 
 Before we start, please check [Sequelize's documentation](http://docs.sequelizejs.com/manual/migrations.html)   
 
-As mentioned in the document, edit **config/config.json** as yours       
+As mentioned in the document, edit `config/config.json` file as yours       
 it should look like down below:
 
 ```sh
@@ -39,6 +39,17 @@ it should look like down below:
 }
 
 ```
+
+### ERD
+![ERD](./images/ERD.png)
+
+### Association
+A user can make many posts and comments => `hasMany`   
+Little tricky thing here is generally a hashtag can have many posts. Let's imagine #love on Instagram
+likewise, a post so in this case, we set both `db.Post.belongsToMany(db.Hashtag, { through: 'PostHashtag' };`   
+`db.Hashtag.belongsToMany(db.Post, { through: 'PostHashtag' });`
+
+
 
 
 
