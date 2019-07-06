@@ -41,7 +41,7 @@ it should look like down below:
 ```
 
 ### ERD
-![ERD](./images/ERD.png)
+![ERD](./images/erd.png)
 
 ### Association
 A user can make many posts and comments => `hasMany`   
