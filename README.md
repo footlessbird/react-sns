@@ -3,13 +3,21 @@
 
 100% inspired by Twitter, fundamental SNS features developed by Next.js
 
-・[Demo](http://dear sns.club) 
+[Demo](https://dear-sns.club)  
 
 *****
 ## At a glance
 ![structure](./images/structure.png)
 
-### Why divided into front-end / back-end 'server' ?
+### Why divided into front-end / back-end 'server' ? 🤷🏻‍♀️🤷🏼‍♂️
+
+Because the rolls are different🍴
+Front is to transmit mainly HTML/CSS nad JS files.
+On the other hand, Back is to store and handle data from Front accordingly.
+
+
+
+
 
 
 
