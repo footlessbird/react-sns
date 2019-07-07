@@ -2,7 +2,6 @@
 ![node](https://img.shields.io/badge/node-v11.8.0-green.svg)
 ![npm](https://img.shields.io/badge/npm-v6.9.0-blue.svg)
 [![Build Status](https://travis-ci.org/dwyl/esta.svg?branch=master)](https://travis-ci.org/dwyl/esta)
-[![NPM](https://nodei.co/npm/dear-sns.png?downloads=true&stars=true)](https://nodei.co/npm/dear-sns/)
 
 100% inspired by Twitter, fundamental SNS features developed by Next.js
 
