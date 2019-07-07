@@ -73,6 +73,11 @@ Before installing Node on your Ubuntu or Amazon Linux whatever you have chosen, 
 apt-get update
 ```
 
+We also need to install vim or nano depending on what text editor you would like
+```sh
+apt-get intall vim
+```
+
 then, please install down below for essential thigs
 ```sh
 apt-get install -y build essential
@@ -120,7 +125,7 @@ Exactly same for back-end but move to `/back` directory
 
 ### NPM build and start
 
-before running server we need build it first
+Before running server we need build it first
 ```sh
 npm run build
 ```
@@ -145,7 +150,8 @@ Same thing for back-end this time as well👯‍♀️
 ### MySQL error handling
 
 If you face error showing by pm2 monit in back-end server   
-***Client does not support authentication protocol requested by server...***
+***Client does not support authentication protocol requested by server...***   
+
 Check [here](https://stackoverflow.com/questions/50093144/mysql-8-0-client-does-not-support-authentication-protocol-requested-by-server)
 
 
@@ -196,9 +202,48 @@ Click it then you'll see the picture below
 
 In the red box, please enter your front-end server's public IP (IPv4 Public IP)   
 
+![domain-6](./images/domain-6.png)
+
 Same thing for back-end server but back-end server's public IP (IPv4 Public IP) and very first red box `Name:` enter `api`   
 
-If you want to use `www` like www.your-domain.com `Name:` enter `www` change `Type:` to `CNAME - Canocial name` and `Value:` enter your domain like `www.your-domain.com` 
+If you want to use `www` like prefix for your domain `www.your-domain.com` `Name:` enter `www` change `Type:` to `CNAME - Canocial name` and `Value:` enter your domain like `your-domain.com` 
+
+To sum up so for, you should be albe to access your front-end `your-domain.com` and back-end `api.your-domain.com`
+
+### Inserting your domain
+
+It's time to apply your domain   
+
+Remember we just have made back-end server domain `api.your-domain.com` like so   
+
+
+In `/front/config/config.js`   
+
+change the domain to yours
+
+```sh
+const backUrl = process.env.NODE_ENV === 'production' ? 'http://api.your-domain.com' : 'http://localhost:3065'
+
+```
+
+In `/pages/post.js`
+```sh
+<Helmet
+        title={`${singlePost.User.nickname}`}
+        description={singlePost.content}
+        meta={[{
+          name: 'description', content: singlePost.content,
+        }, {
+          property: 'og:title', content: `${singlePost.User.nickname}`,
+        }, {
+          property: 'og:description', content: singlePost.content,
+        }, {
+          property: 'og:image', content: singlePost.Images[0] && singlePost.Images[0].src,
+        }, {
+          property: 'og:url', content: `http://your-domain.com/post/${id}`,
+        }]}
+      />
+```
 
 
 
@@ -208,12 +253,170 @@ If you want to use `www` like www.your-domain.com `Name:` enter `www` change `Ty
 
 
 
+### S3
+
+In order to secure data, there might be some issues stroing data in servers   
+When servers duplicated it'll end up having duplicated data as well and if severs are removed, the data will be removed too so we seperate data by using [S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html)
+
+
+Let's go to AWS S3, then create bucket, the bucket name you use 
+
+In `/back/routes/post.js` you need to type your bucket name like below so
+
+```sh
+const upload = multer({
+  storage: multerS3({
+    s3: new AWS.S3(),
+    bucket: 'your-bucket-name',
+    key(req, file, cb) {
+      cb(null, `original/${+new Date()}${path.basename(file.originalname)}`);
+    },
+  }),
+  limits: { fileSize: 20 * 1024 * 1024 },
+});
+```
+
+![s3](./images/s3.png)
+
+Make sure, uncheck `Block all public access`
+In terms of your taste and varios setting methologies of it, it's up to you to make block-options here   
 
 
 
+Now we need to get `access key`
+![accesskey](./images/accesskey.png)
+
+The orange box at the top will be your AWS account ID, click it and go to `My Security Credentials`   
+and click the `Create New Access Key` button and download key file, it will be `.csv` file format   
+For the security reason, we try not to show it to others  
+Use [.env](https://github.com/motdotla/dotenv) to secure it and don't forget to add `.env` to `gitignore`
+
+```sh
+AWS.config.update({
+  region: 'region you have selected',
+  accessKeyId: process.env.S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.S3_SECRET_ACCESS_KEY
+})
+
+```
+
+We are almost done for S3 setting go to `Permission` tab and click `Bucket Polocy` button
+
+![bucketpolicy](./images/bucketpolicy.png)
+
+We need to set Bucket Policy, before we go, please check [here](https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies.html)
+
+I set like below so
+
+```sh
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AddPerm",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": [
+                "s3:GetObject*",
+                "s3:PutObject*"
+            ],
+            "Resource": "arn:aws:s3:::YOUR_BUCKET_NAME/*"
+        }
+    ]
+}
+```
+
+Try to upload some images and check your bucket `original` folder
+
+![original](./images/imagefolders.png)
+
+Inside the `original` folder, you should see some images you'have uploaded
+
+![images](./images/images.png)
 
 
+### Cookie setting
+In `/back/index.js` 
 
+```sh
+app.use(expressSession({
+  resave: false,
+  saveUninitialized: false,
+  secret: process.env.COOKIE_SECRET,
+  cookie: {
+    httpOnly: true,
+    secure: false, // https를 쓸 때 true
+    domain: prod && '.your-domain.com'
+  },
+              .
+              .
+              .
+}));
 
+```
+***You must have `.` as prefix of it***
 
+### Lamda
 
+[Lamda](https://docs.aws.amazon.com/lambda/index.html)
+
+For this app, we use Lamda for resizing images   
+
+Firstly, we install Claudia to easily use Lamda, regardless of OS   
+
+In back-end server `/back`
+```sh
+npm i -g claudia
+```
+
+move to home directory of your back-end server by typing => `cd ~`
+
+```sh
+// make .aws folder
+mkdir .aws
+// move to .aws folder
+cd .aws
+// make credentials file
+vim credentials
+```
+In `credentials file`, you need to type `aws access key ID and secret key`, one you got `.csv` file like below so
+
+```sh
+[default]
+aws_access_key_id=YOUR_ACCESS_KEY_ID
+aws_secret_access_key=YOUR_SECRET_ACCESS_KEY
+```
+
+Let's finish up Lamda setting   
+Go to `/lamda` folder type command below
+
+```sh
+// type region you have selected, I'm gonna show it as I did 
+claudia create --region --region us-east-2 --handler index.handler
+```
+If you face error regarding permission use `sudo` command like below so
+
+```sh
+sudo claudia create --region --region us-east-2 --handler index.handler
+```
+
+Now move to AWS Lamda and check, you should be able to see like below
+
+![lamda](./images/lamda.png)
+
+![basicsetting](./images/lamdabasicsetting.png)
+I set Memory `256MB` Timeout as `10sec`
+
+![addtrigger](./images/lamda-1.png)
+Click `+ Add trigger` and select `S3` and the drop-down menu `Bucket` select your bucket   
+for `Prefix`, we enter `original/` then click `ADD` button
+
+![lamda-2](./images/lamda-2.png)
+Click the red box area then click `Attach policies` then you'll have a search box   
+Type `s3` and set as you want
+
+Now you should be able to see like this
+![lamda-3](./images/lamda-3.png)
+
+Please check `Monitoring` and `View logs in CloudWatch` to make sure your images resized working as it's expected
+*****
