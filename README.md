@@ -255,11 +255,11 @@ In `/pages/post.js`
 
 ### S3
 
-In order to secure data, there might be some issues stroing data in servers   
+In order to secure data, there might be some issues storing data in servers   
 When servers duplicated it'll end up having duplicated data as well and if severs are removed, the data will be removed too so we seperate data by using [S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html)
 
 
-Let's go to AWS S3, then create bucket, the bucket name you use 
+Let's go to AWS S3, then create bucket
 
 In `/back/routes/post.js` you need to type your bucket name like below so
 
@@ -278,8 +278,9 @@ const upload = multer({
 
 ![s3](./images/s3.png)
 
-Make sure, uncheck `Block all public access`
-In terms of your taste and varios setting methologies of it, it's up to you to make block-options here   
+Make sure, uncheck `Block all public access`   
+
+In terms of your taste and various setting methologies of it, it's up to you to make block-options here   
 
 
 
@@ -354,11 +355,11 @@ app.use(expressSession({
 }));
 
 ```
-***You must have `.` as prefix of it***
+***You must have `.` as prefix of your domain***
 
 ### Lamda
 
-[Lamda](https://docs.aws.amazon.com/lambda/index.html)
+[Lamda documentation](https://docs.aws.amazon.com/lambda/index.html)
 
 For this app, we use Lamda for resizing images   
 
