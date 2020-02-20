@@ -5,7 +5,6 @@
 
 100% inspired by Twitter, fundamental SNS features developed by Next.js
 
-[Demo](http://dear-sns.club)  
 
 *****
 ## At a glance
