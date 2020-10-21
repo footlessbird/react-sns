@@ -404,21 +404,21 @@ sudo claudia create --region --region us-east-2 --handler index.handler
 
 Now move to AWS Lambda and check, you should be able to see like below
 
-![lambda](./images/lambda.png)
+![lambda](./images/lamda.png)
 
-![basicsetting](./images/lambdabasicsetting.png)
+![basicsetting](./images/lamdabasicsetting.png)
 I set Memory `256MB` Timeout as `10sec`
 
-![addtrigger](./images/lambda-1.png)
+![addtrigger](./images/lamda-1.png)
 Click `+ Add trigger` and select `S3` and the drop-down menu `Bucket` select your bucket   
 for `Prefix`, we enter `original/` then click `ADD` button
 
-![lambda-2](./images/lambda-2.png)
+![lambda-2](./images/lamda-2.png)
 Click the red box area then click `Attach policies` then you'll have a search box   
 Type `s3` and set as you want
 
 Now you should be able to see like this
-![lambda-3](./images/lambda-3.png)
+![lambda-3](./images/lamda-3.png)
 
 Please check `Monitoring` and `View logs in CloudWatch` to make sure your images resized working as it's expected
 *****
