@@ -358,13 +358,13 @@ app.use(expressSession({
 ```
 ***You must have `.` as prefix of your domain***
 
-### Lamda
+### Lambda
 
-[Lamda documentation](https://docs.aws.amazon.com/lambda/index.html)
+[Lambda documentation](https://docs.aws.amazon.com/lambda/index.html)
 
-For this app, we use Lamda for resizing images   
+For this app, we use Lambda for resizing images   
 
-Firstly, we install Claudia to easily use Lamda, regardless of OS   
+Firstly, we install Claudia to easily use Lambda, regardless of OS   
 
 In back-end server `/back`
 ```sh
@@ -389,8 +389,8 @@ aws_access_key_id=YOUR_ACCESS_KEY_ID
 aws_secret_access_key=YOUR_SECRET_ACCESS_KEY
 ```
 
-Let's finish up Lamda setting   
-Go to `/lamda` folder type command below
+Let's finish up Lambda setting   
+Go to `/lambda` folder type command below
 
 ```sh
 // type region you have selected, I'm gonna show it as I did 
@@ -402,23 +402,23 @@ If you face error regarding permission use `sudo` command like below so
 sudo claudia create --region --region us-east-2 --handler index.handler
 ```
 
-Now move to AWS Lamda and check, you should be able to see like below
+Now move to AWS Lambda and check, you should be able to see like below
 
-![lamda](./images/lamda.png)
+![lambda](./images/lambda.png)
 
-![basicsetting](./images/lamdabasicsetting.png)
+![basicsetting](./images/lambdabasicsetting.png)
 I set Memory `256MB` Timeout as `10sec`
 
-![addtrigger](./images/lamda-1.png)
+![addtrigger](./images/lambda-1.png)
 Click `+ Add trigger` and select `S3` and the drop-down menu `Bucket` select your bucket   
 for `Prefix`, we enter `original/` then click `ADD` button
 
-![lamda-2](./images/lamda-2.png)
+![lambda-2](./images/lambda-2.png)
 Click the red box area then click `Attach policies` then you'll have a search box   
 Type `s3` and set as you want
 
 Now you should be able to see like this
-![lamda-3](./images/lamda-3.png)
+![lambda-3](./images/lambda-3.png)
 
 Please check `Monitoring` and `View logs in CloudWatch` to make sure your images resized working as it's expected
 *****
